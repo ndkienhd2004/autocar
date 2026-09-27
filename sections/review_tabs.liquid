@@ -1,0 +1,359 @@
+{{ 'app-review.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'app-review.js' | asset_url }}" defer="defer"></script>
+
+<section id="ReviewTabs-{{ section.id }}" class="review-tabs color-{{ section.settings.color_scheme }}">
+  <div class="review-tabs__inner page-width">
+    <h2 class="review-tabs__heading">
+      {{ section.settings.heading_before | escape }}
+      <span>{{ section.settings.heading_highlight | escape }}</span>
+      {{ section.settings.heading_after | escape }}
+    </h2>
+
+    {% if section.settings.subheading != blank %}
+      <p class="review-tabs__subheading">{{ section.settings.subheading | escape }}</p>
+    {% endif %}
+
+    <div class="review-tabs__switch" role="tablist" aria-label="Review type">
+      <button class="review-tabs__button review-tabs__button--active" type="button" role="tab" aria-selected="true" aria-controls="ReviewVideos-{{ section.id }}">
+        {{ section.settings.video_label | escape }}
+      </button>
+      <button class="review-tabs__button" type="button" role="tab" aria-selected="false" aria-controls="ReviewPhotos-{{ section.id }}">
+        {{ section.settings.photo_label | escape }}
+      </button>
+    </div>
+
+    <div class="review-tabs__content">
+      <div id="ReviewVideos-{{ section.id }}" class="review-tabs__panel" role="tabpanel">
+        <div class="review-tabs__status" data-video-status aria-live="polite">Loading video reviews…</div>
+        <div class="review-tabs__video-grid" data-video-grid></div>
+      </div>
+
+      <div id="ReviewPhotos-{{ section.id }}" class="review-tabs__panel" role="tabpanel" hidden>
+        <div class="review-tabs__status" data-photo-status aria-live="polite">Loading photo reviews…</div>
+        <div class="review-tabs__photo-grid" data-photo-grid></div>
+      </div>
+    </div>
+
+    <button class="review-tabs__see-more" type="button" data-see-more hidden>See More</button>
+  </div>
+</section>
+
+<div id="reviewModal" class="modal-app-review">
+  <div class="modal-content-app-review">
+    <span class="close-app-review">&times;</span>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const root = document.getElementById('ReviewTabs-{{ section.id }}');
+    if (!root) return;
+
+    const apiBase = 'https://api.autocaruniverse.cloud';
+    const imageBase = `${apiBase}/uploads/images/`;
+    const videoBase = `${apiBase}/uploads/videos/`;
+    const pageSize = { video: 10, photo: 8 };
+    const state = {
+      active: 'video',
+      video: { nextPage: 0, hasMore: true, loading: false, initialized: false, items: [], filenames: new Set() },
+      photo: { nextPage: 0, hasMore: true, loading: false, initialized: false, ids: new Set(), items: [] }
+    };
+
+    const buttons = [...root.querySelectorAll('.review-tabs__button')];
+    const panels = buttons.map((button) => document.getElementById(button.getAttribute('aria-controls')));
+    const videoGrid = root.querySelector('[data-video-grid]');
+    const photoGrid = root.querySelector('[data-photo-grid]');
+    const videoStatus = root.querySelector('[data-video-status]');
+    const photoStatus = root.querySelector('[data-photo-status]');
+    const seeMore = root.querySelector('[data-see-more]');
+
+    const escapeHtml = (value) => String(value ?? '').replace(/[&<>'"]/g, (char) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    }[char]));
+
+    const formatDate = (value) => {
+      if (!value) return '';
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    };
+
+    const stars = (rate) => Array.from({ length: 5 }, (_, index) => `<span aria-hidden="true" class="review-tabs__star${index < Number(rate || 0) ? '' : ' review-tabs__star--empty'}">★</span>`).join('');
+
+    const updateSeeMore = () => {
+      const current = state[state.active];
+      const show = current.initialized && current.hasMore;
+      seeMore.hidden = !show;
+      seeMore.disabled = current.loading;
+      seeMore.textContent = current.loading ? 'Loading…' : 'See More';
+    };
+
+    const setTab = (activeButton) => {
+      const activeIndex = buttons.indexOf(activeButton);
+      state.active = activeIndex === 1 ? 'photo' : 'video';
+      buttons.forEach((button, index) => {
+        const active = index === activeIndex;
+        button.classList.toggle('review-tabs__button--active', active);
+        button.setAttribute('aria-selected', active ? 'true' : 'false');
+        if (panels[index]) panels[index].hidden = !active;
+      });
+      updateSeeMore();
+    };
+
+    buttons.forEach((button) => button.addEventListener('click', () => setTab(button)));
+
+    const getInitials = (name) => String(name || 'VC')
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((part) => part[0])
+      .join('')
+      .toUpperCase();
+
+    const syncPhotoCardHeights = () => {
+      const cards = [...photoGrid.querySelectorAll('.review-tabs__photo-card')];
+      if (!cards.length || photoGrid.hidden) return;
+
+      cards.forEach((card) => { card.style.minHeight = ''; });
+      requestAnimationFrame(() => {
+        const tallestCard = Math.max(...cards.map((card) => card.getBoundingClientRect().height));
+        cards.forEach((card) => { card.style.minHeight = `${Math.ceil(tallestCard)}px`; });
+      });
+    };
+
+    const appendPhotoCards = (reviews) => {
+      const photoReviews = (Array.isArray(reviews) ? reviews : []).filter((review) => {
+        return review && !state.photo.ids.has(review.id) && Array.isArray(review.images) && review.images.some((image) => image && image.filename);
+      });
+      if (!photoReviews.length) return 0;
+
+      const startIndex = state.photo.items.length;
+      photoReviews.forEach((review) => {
+        state.photo.ids.add(review.id);
+        state.photo.items.push(review);
+      });
+
+      photoGrid.insertAdjacentHTML('beforeend', photoReviews.map((review, index) => {
+        const firstImage = review.images.find((image) => image && image.filename);
+        const date = formatDate(review.created || review.modified);
+
+        return `
+          <article class="review-tabs__photo-card" data-photo-index="${startIndex + index}">
+            <div class="review-tabs__photo-media">
+              <img src="${imageBase}${encodeURIComponent(firstImage.filename)}" alt="${escapeHtml(review.title || 'Customer review photo')}" loading="lazy">
+            </div>
+            <div class="review-tabs__photo-body">
+              <div class="review-tabs__photo-author">
+                <div>
+                  <strong>${escapeHtml(review.user || 'Verified customer')}</strong>
+                  <span>United States</span>
+                  <span>Verified Buyer</span>
+                </div>
+                <span class="review-tabs__initials" aria-hidden="true">${escapeHtml(getInitials(review.user))}</span>
+              </div>
+              <div class="review-tabs__photo-stars" aria-label="${escapeHtml(review.rate || 0)} out of 5 stars">${stars(review.rate)}</div>
+              ${date ? `<time class="review-tabs__photo-date" datetime="${escapeHtml(review.created || review.modified || '')}">${escapeHtml(date)}</time>` : ''}
+              <h3>${escapeHtml(review.title || 'Customer review')}</h3>
+              <p>${escapeHtml(review.description || '')}</p>
+            </div>
+          </article>
+        `;
+      }).join(''));
+
+      [...photoGrid.querySelectorAll('.review-tabs__photo-card')].slice(startIndex).forEach((item) => {
+        item.addEventListener('click', () => {
+          const index = Number(item.dataset.photoIndex);
+          const review = state.photo.items[index];
+          if (!review) return;
+
+          if (typeof window.showModalDetail === 'function') {
+            window.showModalDetail(review);
+          } else if (typeof window.showModalImagesDetail === 'function') {
+            window.showModalImagesDetail(review.id);
+          }
+        });
+      });
+
+      if (photoReviews.length) {
+        photoGrid.hidden = false;
+        photoStatus.hidden = true;
+        syncPhotoCardHeights();
+      }
+      return photoReviews.length;
+    };
+
+    const appendVideoCards = (videos) => {
+      const newVideos = (Array.isArray(videos) ? videos : []).filter((video) => {
+        return video && video.filename && !state.video.filenames.has(video.filename);
+      });
+      if (!newVideos.length) return 0;
+
+      const startIndex = state.video.items.length;
+      newVideos.forEach((video) => {
+        state.video.filenames.add(video.filename);
+        state.video.items.push(video);
+      });
+
+      videoGrid.insertAdjacentHTML('beforeend', newVideos.map((video, index) => {
+        const poster = video.frame ? ` poster="${imageBase}${encodeURIComponent(video.frame)}"` : '';
+        return `
+          <div class="video-item-app-review" data-video-index="${startIndex + index}">
+            <div class="video-thumbnail-app-review">
+              <video src="${videoBase}${encodeURIComponent(video.filename)}"${poster} muted playsinline preload="metadata"></video>
+              <span class="play-button-app-review" aria-hidden="true">▶</span>
+            </div>
+          </div>
+        `;
+      }).join(''));
+
+      [...videoGrid.querySelectorAll('.video-item-app-review')].slice(startIndex).forEach((item) => {
+        item.addEventListener('click', () => {
+          const index = Number(item.dataset.videoIndex);
+          if (typeof window.showModalvideo === 'function') {
+            window.showModalvideo(state.video.items, index);
+            return;
+          }
+          const video = item.querySelector('video');
+          if (video) { video.controls = true; video.play().catch(() => {}); }
+        });
+      });
+
+      videoGrid.hidden = false;
+      videoStatus.hidden = true;
+      return newVideos.length;
+    };
+
+    const loadPhotos = async () => {
+      if (state.photo.loading || !state.photo.hasMore) return;
+      state.photo.loading = true;
+      updateSeeMore();
+      const requestPage = state.photo.nextPage;
+
+      try {
+        const response = await fetch(`${apiBase}/api/reviews?pageIndex=${requestPage}&pageSize=${pageSize.photo}`);
+        const payload = await response.json();
+        appendPhotoCards(payload?.data?.reviews);
+        const pagination = payload?.data?.pagination;
+        state.photo.hasMore = pagination?.hasNextPage === true;
+        state.photo.nextPage = requestPage === 0 ? 2 : requestPage + 1;
+        state.photo.initialized = true;
+        if (!photoGrid.children.length) photoStatus.textContent = 'No photo reviews available yet.';
+      } catch (error) {
+        state.photo.hasMore = false;
+        photoStatus.textContent = 'Photo reviews are temporarily unavailable.';
+      } finally {
+        state.photo.loading = false;
+        updateSeeMore();
+      }
+    };
+
+    const loadVideos = async () => {
+      if (state.video.loading || !state.video.hasMore) return;
+      state.video.loading = true;
+      updateSeeMore();
+      const requestPage = state.video.nextPage;
+
+      try {
+        const response = await fetch(`${apiBase}/api/media/files?type=videos&pageIndex=${requestPage}&pageSize=${pageSize.video}`);
+        const payload = await response.json();
+        const added = appendVideoCards(payload?.data);
+        const returned = Array.isArray(payload?.data) ? payload.data : [];
+        const pagination = payload?.pagination || payload?.data?.pagination;
+        state.video.hasMore = pagination?.hasNextPage === true || (!pagination && returned.length >= pageSize.video && added > 0);
+        state.video.nextPage = requestPage + 1;
+        state.video.initialized = true;
+        if (!videoGrid.children.length) videoStatus.textContent = 'No video reviews available yet.';
+      } catch (error) {
+        state.video.hasMore = false;
+        videoStatus.textContent = 'Video reviews are temporarily unavailable.';
+      } finally {
+        state.video.loading = false;
+        updateSeeMore();
+      }
+    };
+
+    seeMore.addEventListener('click', () => {
+      if (state.active === 'photo') loadPhotos();
+      else loadVideos();
+    });
+
+    window.addEventListener('resize', syncPhotoCardHeights);
+    window.addEventListener('load', syncPhotoCardHeights);
+
+    Promise.allSettled([loadVideos(), loadPhotos()]);
+  })();
+</script>
+
+<style>
+  #ReviewTabs-{{ section.id }} { background: #fff; color: #111; }
+  #ReviewTabs-{{ section.id }} .review-tabs__inner { padding: clamp(20px, 3vw, 40px) 0 clamp(44px, 5vw, 72px); text-align: center; }
+  #ReviewTabs-{{ section.id }} .review-tabs__heading { margin: 0; color: #000; font-size: clamp(2.8rem, 4.2vw, 5.8rem); font-weight: 950; letter-spacing: -.045em; line-height: .98; text-transform: uppercase; }
+  #ReviewTabs-{{ section.id }} .review-tabs__heading span { color: #ef6d23; }
+  #ReviewTabs-{{ section.id }} .review-tabs__subheading { margin: 24px 0 0; color: #626262; font-size: clamp(1.5rem, 1.5vw, 2rem); line-height: 1.4; }
+  #ReviewTabs-{{ section.id }} .review-tabs__switch { display: inline-flex; gap: 28px; margin-top: clamp(44px, 5vw, 64px); padding: 20px 28px; border-radius: 6px; background: #000; }
+  #ReviewTabs-{{ section.id }} .review-tabs__button { min-width: 220px; min-height: 62px; border: 2px solid #777; border-radius: 7px; background: transparent; color: #fff; font: inherit; font-size: 1.6rem; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+  #ReviewTabs-{{ section.id }} .review-tabs__button--active { border-color: #ef6d23; background: #ef6d23; }
+  #ReviewTabs-{{ section.id }} .review-tabs__content { width: min(1400px, 100%); margin: 36px auto 0; text-align: left; }
+  #ReviewTabs-{{ section.id }} .review-tabs__panel[hidden], #ReviewTabs-{{ section.id }} [hidden] { display: none !important; }
+  #ReviewTabs-{{ section.id }} .review-tabs__status { padding: 40px; color: #777; text-align: center; font-size: 1.5rem; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; align-items: stretch; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid #e2e2e2; border-radius: 4px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.08); cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-card:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,.12); }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-media { aspect-ratio: 1 / 1.18; overflow: hidden; background: #f2f2f2; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-body { display: flex; flex: 1; flex-direction: column; padding: 14px 14px 20px; text-align: left; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-author { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-author > div { display: grid; gap: 2px; min-width: 0; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-author strong { color: #171717; font-size: 1.55rem; font-weight: 800; line-height: 1.1; text-transform: uppercase; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-author span:not(.review-tabs__initials) { color: #777; font-size: 1.25rem; line-height: 1.15; }
+  #ReviewTabs-{{ section.id }} .review-tabs__initials { display: grid; place-items: center; flex: 0 0 28px; width: 28px; height: 28px; border-radius: 50%; background: #f0f0f0; color: #777; font-size: 1rem; font-weight: 800; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-stars { display: flex; gap: 1px; margin-top: 12px; }
+  #ReviewTabs-{{ section.id }} .review-tabs__star { color: #ffc400; font-size: 1.9rem; line-height: 1; }
+  #ReviewTabs-{{ section.id }} .review-tabs__star--empty { color: #dedede; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-date { display: block; margin-top: 8px; color: #777; font-size: 1.15rem; line-height: 1.2; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-body h3 { margin: 12px 0 8px; color: #171717; font-size: 1.55rem; font-weight: 800; line-height: 1.18; }
+  #ReviewTabs-{{ section.id }} .review-tabs__photo-body p { flex: 1; margin: 0; color: #202020; font-size: 1.35rem; line-height: 1.45; }
+  #ReviewTabs-{{ section.id }} .review-tabs__video-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); justify-content: center; gap: 25px; }
+  #ReviewTabs-{{ section.id }} .review-tabs__video-grid .video-item-app-review { position: relative; width: 100%; height: auto; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 10px; background: #f8f9fa; box-shadow: 0 2px 8px rgba(0,0,0,.1); cursor: pointer; }
+  #ReviewTabs-{{ section.id }} .review-tabs__video-grid .video-thumbnail-app-review { position: relative; width: 100%; height: 100%; }
+  #ReviewTabs-{{ section.id }} .review-tabs__video-grid .video-thumbnail-app-review video { display: block; width: 100%; height: 100%; object-fit: cover; background: #000; }
+  #ReviewTabs-{{ section.id }} .review-tabs__video-grid .play-button-app-review { position: absolute; top: 50%; left: 50%; display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; background: rgba(0,0,0,.7); color: #fff; font-size: 1.2rem; transform: translate(-50%,-50%); }
+  #ReviewTabs-{{ section.id }} .review-tabs__see-more { display: block; min-width: 180px; margin: 40px auto 0; padding: 14px 30px; border: 0; border-radius: 4px; background: #ef6d23; color: #fff; font: inherit; font-size: 1.5rem; font-weight: 900; line-height: 1.2; text-transform: uppercase; cursor: pointer; }
+  #ReviewTabs-{{ section.id }} .review-tabs__see-more:hover { background: #d95c14; }
+  #ReviewTabs-{{ section.id }} .review-tabs__see-more:disabled { opacity: .65; cursor: wait; }
+  @media screen and (max-width: 989px) {
+    #ReviewTabs-{{ section.id }} .review-tabs__photo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media screen and (max-width: 749px) {
+    #ReviewTabs-{{ section.id }} .review-tabs__inner { padding: 20px 0 42px; }
+    #ReviewTabs-{{ section.id }} .review-tabs__heading { font-size: clamp(2.6rem, 10vw, 4rem); }
+    #ReviewTabs-{{ section.id }} .review-tabs__content { width: 100%; margin-top: 32px; }
+    #ReviewTabs-{{ section.id }} .review-tabs__switch { width: 100%; display: flex; flex-direction: row; gap: 10px; margin-top: 32px; padding: 10px; }
+    #ReviewTabs-{{ section.id }} .review-tabs__button { flex: 1 1 0; width: auto; min-width: 0; min-height: 48px; padding: 0 8px; font-size: clamp(1.05rem, 3.2vw, 1.3rem); line-height: 1.1; white-space: nowrap; }
+    #ReviewTabs-{{ section.id }} .review-tabs__photo-grid,
+    #ReviewTabs-{{ section.id }} .review-tabs__video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; width: 100%; justify-content: stretch; }
+    #ReviewTabs-{{ section.id }} .review-tabs__photo-body { padding: 12px 10px 16px; }
+    #ReviewTabs-{{ section.id }} .review-tabs__photo-author strong,
+    #ReviewTabs-{{ section.id }} .review-tabs__photo-body h3 { font-size: 1.35rem; }
+    #ReviewTabs-{{ section.id }} .review-tabs__photo-author span:not(.review-tabs__initials),
+    #ReviewTabs-{{ section.id }} .review-tabs__photo-body p { font-size: 1.2rem; }
+    #ReviewTabs-{{ section.id }} .review-tabs__video-grid .video-item-app-review { width: 100%; height: auto; aspect-ratio: 2 / 3; }
+    #ReviewTabs-{{ section.id }} .review-tabs__video-grid .play-button-app-review { width: 48px; height: 48px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Review tabs",
+  "settings": [
+    { "type": "text", "id": "heading_before", "label": "Heading before highlight", "default": "Trusted by" },
+    { "type": "text", "id": "heading_highlight", "label": "Heading highlight", "default": "100,000+" },
+    { "type": "text", "id": "heading_after", "label": "Heading after highlight", "default": "Happy Drivers" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "See What Auto Car Universe Customers Are Loving" },
+    { "type": "text", "id": "video_label", "label": "Video button label", "default": "Video Reviews" },
+    { "type": "text", "id": "photo_label", "label": "Photo button label", "default": "Photo Reviews" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }
+  ],
+  "presets": [{ "name": "Review tabs" }]
+}
+{% endschema %}

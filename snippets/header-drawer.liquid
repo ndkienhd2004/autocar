@@ -1,0 +1,101 @@
+{% comment %}Auto Car Universe mobile navigation drawer.{% endcomment %}
+{{ 'data-vehicle.js' | asset_url | script_tag }}
+
+<header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
+  <details id="Details-menu-drawer-container" class="menu-drawer-container">
+    <summary class="header__icon header__icon--menu header__icon--summary link focus-inset" aria-label="{{ 'sections.header.menu' | t }}">
+      <span>{% render 'icon-hamburger' %}{% render 'icon-close' %}</span>
+    </summary>
+    <div id="menu-drawer" class="gradient menu-drawer motion-reduce acu-drawer">
+      <div class="menu-drawer__inner-container">
+        <div class="acu-drawer__content">
+          <nav class="acu-drawer__categories" aria-label="Shop categories">
+            <a class="acu-drawer__category" href="/products/luxury-seat-covers">
+              <img src="{{ 'custom-fit-seat-interior.png' | asset_url }}" alt="" width="700" height="700" loading="eager"><span>Seat Covers</span>
+            </a>
+            <a class="acu-drawer__category" href="/products/luxury-steering-wheel-covers">
+              <img src="https://cdn.shopify.com/s/files/1/0829/1880/1665/files/sw-solid-black_2cc993a0-4fa0-4132-8000-d0b95738c909.webp?v=1783334717" alt="" width="700" height="700" loading="eager"><span>Steering Wheel<br>Covers</span>
+            </a>
+            <a class="acu-drawer__category" href="/collections/accessories">
+              <img src="{{ 'why-autocar-seats.jpg' | asset_url }}" alt="" width="700" height="700" loading="eager"><span>Pet Seat Covers</span>
+            </a>
+            <a class="acu-drawer__category" href="/collections/accessories">
+              <img src="/cdn/shop/files/Thi_t_k_ch_a_co_ten_15.png?v=1783333134&width=700" alt="" width="700" height="700" loading="eager"><span>Accessories</span>
+            </a>
+          </nav>
+
+          <section class="acu-drawer__vehicle" aria-labelledby="acu-drawer-vehicle-title">
+            <h2 id="acu-drawer-vehicle-title"><span>1</span> Vehicle Details</h2>
+            <form class="acu-drawer__vehicle-form" data-drawer-vehicle-form>
+              <div class="acu-drawer__selects">
+                <label><span class="visually-hidden">Year</span><select data-drawer-year required><option value="">Year</option></select></label>
+                <label><span class="visually-hidden">Make</span><select data-drawer-make required disabled><option value="">Make</option></select></label>
+                <label><span class="visually-hidden">Model</span><select data-drawer-model required disabled><option value="">Model</option></select></label>
+              </div>
+              <p class="acu-drawer__vehicle-error" data-drawer-vehicle-error hidden>Please select your year, make, and model.</p>
+              <button type="submit" data-drawer-vehicle-submit disabled><span data-drawer-button-label>Select Your Year</span> <span aria-hidden="true">›</span></button>
+            </form>
+          </section>
+
+          <nav class="acu-drawer__links" aria-label="Help and company links">
+            <a href="/blogs/faq">FAQ <span aria-hidden="true">›</span></a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </details>
+</header-drawer>
+
+<script>
+  (() => {
+    const drawer = document.querySelector('#menu-drawer');
+    if (!drawer || drawer.dataset.vehicleReady === 'true') return;
+    const initialize = () => {
+      if (!window.dataVehicle) { window.setTimeout(initialize, 80); return; }
+      const form = drawer.querySelector('[data-drawer-vehicle-form]');
+      const year = drawer.querySelector('[data-drawer-year]');
+      const make = drawer.querySelector('[data-drawer-make]');
+      const model = drawer.querySelector('[data-drawer-model]');
+      const submit = drawer.querySelector('[data-drawer-vehicle-submit]');
+      const buttonLabel = drawer.querySelector('[data-drawer-button-label]');
+      const error = drawer.querySelector('[data-drawer-vehicle-error]');
+      const data = window.dataVehicle;
+      const fields = [year, make, model];
+      const reset = (select, label) => { select.replaceChildren(new Option(label, '')); select.disabled = true; };
+      const syncActiveField = () => {
+        const active = !year.value ? year : (!make.value ? make : (!model.value ? model : model));
+        fields.forEach((field) => field.closest('label')?.classList.toggle('is-active', field === active));
+      };
+      const updateButton = () => {
+        buttonLabel.textContent = !year.value ? 'Select Your Year' : (!make.value ? 'Select Your Make' : (!model.value ? 'Select Your Model' : 'Shop Seat Covers'));
+        submit.disabled = !(year.value && make.value && model.value);
+        error.hidden = true;
+        syncActiveField();
+      };
+      Object.keys(data).sort((a, b) => Number(b) - Number(a)).forEach((value) => year.add(new Option(value, value)));
+      year.addEventListener('change', () => {
+        reset(make, 'Make'); reset(model, 'Model');
+        (data[year.value] || []).forEach((item) => make.add(new Option(item.make, item.make)));
+        make.disabled = make.options.length === 1; updateButton();
+      });
+      make.addEventListener('change', () => {
+        reset(model, 'Model');
+        const match = (data[year.value] || []).find((item) => item.make === make.value);
+        (match?.models || []).forEach((item) => { const name = typeof item === 'string' ? item : item.name; model.add(new Option(name, name)); });
+        model.disabled = model.options.length === 1; updateButton();
+      });
+      model.addEventListener('change', updateButton);
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!year.value || !make.value || !model.value) { error.hidden = false; return; }
+        const destination = new URL('/products/luxury-seat-covers', window.location.origin);
+        destination.searchParams.set('vehicle_year', year.value);
+        destination.searchParams.set('vehicle_make', make.value);
+        destination.searchParams.set('vehicle_model', model.value);
+        window.location.assign(destination);
+      });
+      drawer.dataset.vehicleReady = 'true'; updateButton();
+    };
+    initialize();
+  })();
+</script>

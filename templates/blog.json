@@ -1,0 +1,155 @@
+{
+  "sections": {
+    "faq_page": {
+      "type": "faq",
+      "blocks": {
+        "header_aRQFzQ": {
+          "type": "header",
+          "settings": {
+            "title": "Compatibility And Fit"
+          }
+        },
+        "item_NN3WC8": {
+          "type": "item",
+          "settings": {
+            "title": "Are they custom-made for my car ?",
+            "content": "<p>We will customize for each car model.We don't sell universal model.</p>"
+          }
+        },
+        "item_WdYTpz": {
+          "type": "item",
+          "settings": {
+            "title": "Do the rear seat covers accommodate a split bench or a full bench seat ?",
+            "content": "<p>They accommodate a split bench, specifically 60/40 and even 40/20/40 to be precise. </p>"
+          }
+        },
+        "item_UbEY36": {
+          "type": "item",
+          "settings": {
+            "title": "Do you offer a seat cover for the middle front seat, armrests and console ?",
+            "content": "<p>Absolutely Yes! Our \"Bundle Set\" will include the middle front seat,armrests and console too.</p>"
+          }
+        },
+        "header_bkbiUK": {
+          "type": "header",
+          "settings": {
+            "title": "Material And Design"
+          }
+        },
+        "item_VHkMia": {
+          "type": "item",
+          "settings": {
+            "title": "What is material of your car seat covers ?",
+            "content": "<p>They are made from premium <strong>Nappa </strong>leather. This material is durable, breathable and gives a luxurious look and feel.</p>"
+          }
+        },
+        "item_dyCrat": {
+          "type": "item",
+          "settings": {
+            "title": "Are the seat covers breathable and comfortable during long drives ?",
+            "content": "<p>Absolutely! We've incorporated breathable cushioning for cool comfort in any climate.</p>"
+          }
+        },
+        "item_8cgfVA": {
+          "type": "item",
+          "settings": {
+            "title": "What is the different of your seat covers with other brands ?",
+            "content": "<p>Our seat cover was custom-made for customer car model.Especially, we will give customer <strong>2 Free Neck Pillows.</strong></p>"
+          }
+        },
+        "header_H7J86N": {
+          "type": "header",
+          "settings": {
+            "title": "Installation"
+          }
+        },
+        "item_XJKEG4": {
+          "type": "item",
+          "settings": {
+            "title": "How easy are these seats to install ?",
+            "content": "<p>The installation process is <strong>quite simple. </strong>With just simple steps that typically take around <strong>15 minutes.</strong></p>"
+          }
+        },
+        "item_qNPJqE": {
+          "type": "item",
+          "settings": {
+            "title": "Can I install it by myself ?",
+            "content": "<p>Absolutely! Our seat covers are designed with <strong>no special tool</strong>. You can install it at home by yourself.</p>"
+          }
+        },
+        "item_Be6Rad": {
+          "type": "item",
+          "settings": {
+            "title": "Is there a guide or manual available for installation ?",
+            "content": "<p>Yes, we provide multiple resources for installation guidance. You can access a <a href=\"https://www.youtube.com/watch?v=6CItbn0Gj1g\" target=\"_blank\" title=\"https://www.youtube.com/watch?v=6CItbn0Gj1g\">video guide </a>and a PDF manual. Additionally, a paper manual is included in every package.</p>"
+          }
+        },
+        "header_XqpKaf": {
+          "type": "header",
+          "settings": {
+            "title": "Shipping And Warranty"
+          }
+        },
+        "item_XU48KR": {
+          "type": "item",
+          "settings": {
+            "title": "How long does shipping take?",
+            "content": "<p>You will receive your order within <strong>7-15 days</strong> as we need extra time to <strong>customize for your vehicle</strong>.</p>"
+          }
+        },
+        "item_8H3fiE": {
+          "type": "item",
+          "settings": {
+            "title": "Is Free Shipping available ?",
+            "content": "<p>Absolutely! We offer <strong>Free Shipping across the entire United States</strong>.</p>"
+          }
+        },
+        "item_xdgfBE": {
+          "type": "item",
+          "settings": {
+            "title": "What's about Warranty Policy ?",
+            "content": "<p>We provide a <strong>2-year warranty</strong> and a <strong>30-days free return policy</strong>. You can <strong>return the product within 30 days</strong> if you're not satisfied.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "header_aRQFzQ",
+        "item_NN3WC8",
+        "item_WdYTpz",
+        "item_UbEY36",
+        "header_bkbiUK",
+        "item_VHkMia",
+        "item_dyCrat",
+        "item_8cgfVA",
+        "header_H7J86N",
+        "item_XJKEG4",
+        "item_qNPJqE",
+        "item_Be6Rad",
+        "header_XqpKaf",
+        "item_XU48KR",
+        "item_8H3fiE",
+        "item_xdgfBE"
+      ],
+      "settings": {
+        "anchor_id": "faq",
+        "subheading": "",
+        "title": "FAQ",
+        "content": "",
+        "button_text": "View More FAQs",
+        "button_url": "/blogs/faq",
+        "text_alignment": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "button_background": "#1a1a1a",
+        "button_text_color": "#ee6819",
+        "accordion_background": "",
+        "accordion_text_color": ""
+      }
+    }
+  },
+  "order": [
+    "faq_page"
+  ]
+}

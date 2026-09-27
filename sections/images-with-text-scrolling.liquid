@@ -1,0 +1,220 @@
+{{ 'section-images-with-text-scrolling.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'images-with-text-scrolling.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --images-scrolling-block-count: {{ section.blocks.size }};
+    --images-scrolling-text: {{ section.settings.text_color | default: '#ffffff' }};
+    --images-scrolling-heading: {{ section.settings.heading_color | default: section.settings.text_color | default: '#ffffff' }};
+    --images-scrolling-bg: {% if section.settings.background_gradient != blank %}{{ section.settings.background_gradient }}{% else %}{{ section.settings.background | default: '#1a1a1a' }}{% endif %};
+    --sticky-area-height: 6.4rem;
+  }
+
+  @media screen and (max-width: 699px) {
+    #shopify-section-{{ section.id }} {
+      --images-scrolling-grid: {% if section.settings.stack_on_mobile %}none{% else %}auto / auto-flow 73vw{% endif %};
+    }
+    {% if section.settings.stack_on_mobile %}
+    #shopify-section-{{ section.id }} .images-scrolling-mobile {
+      display: grid;
+      grid-template-columns: 1fr;
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+    {% endif %}
+  }
+
+  @media screen and (min-width: 700px) {
+    #shopify-section-{{ section.id }} {
+      --images-scrolling-grid-template-columns: {% if section.settings.image_position == 'start' %}[media] minmax(0, 1fr) [content] minmax(0, 0.8fr){% else %}[content] minmax(0, 0.8fr) [media] minmax(0, 1fr){% endif %};
+    }
+  }
+{%- endstyle -%}
+
+<section class="images-scrolling-section"{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %}>
+  <div class="images-scrolling-section__inner">
+    {%- comment -%} Mobile {%- endcomment -%}
+    <images-with-text-scrolling class="images-scrolling-mobile">
+      {%- for block in section.blocks -%}
+        <div class="images-scrolling-mobile__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: block.settings.image.width
+              | image_tag:
+                loading: 'lazy',
+                sizes: '(max-width: 699px) 100vw, 650px',
+                widths: '200,300,400,600,800,1000,1200,1400,1600'
+            }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag }}
+          {%- endif -%}
+
+          <div class="images-scrolling__content">
+            {%- if section.settings.show_counter -%}
+              <span class="images-scrolling__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>
+            {%- endif -%}
+
+            <div class="images-scrolling__copy" style="--images-scrolling-item-icon-width: {{ block.settings.icon_width }}px">
+              {%- if block.settings.custom_icon != blank -%}
+                {{
+                  block.settings.custom_icon
+                  | image_url: width: block.settings.custom_icon.width
+                  | image_tag: loading: 'lazy', class: 'images-scrolling__icon'
+                }}
+              {%- endif -%}
+
+              {%- if block.settings.title != blank -%}
+                <h2 class="images-scrolling__heading">{{ block.settings.title | escape }}</h2>
+              {%- endif -%}
+
+              {%- if block.settings.content != blank -%}
+                <div class="images-scrolling__body">{{ block.settings.content }}</div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </images-with-text-scrolling>
+
+    {%- comment -%} Desktop: sticky media, content drives image swap on scroll {%- endcomment -%}
+    <images-with-text-scrolling
+      scrolling-experience="{{ section.settings.desktop_image_effect }}"
+      class="images-scrolling-desktop"
+    >
+      <div class="images-scrolling-desktop__content-list">
+        {%- for block in section.blocks -%}
+          <div class="images-scrolling__content">
+            {%- if section.settings.show_counter -%}
+              <span class="images-scrolling__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>
+            {%- endif -%}
+
+            <div class="images-scrolling__copy" style="--images-scrolling-item-icon-width: {{ block.settings.icon_width }}px">
+              {%- if block.settings.custom_icon != blank -%}
+                {{
+                  block.settings.custom_icon
+                  | image_url: width: block.settings.custom_icon.width
+                  | image_tag: loading: 'lazy', class: 'images-scrolling__icon'
+                }}
+              {%- endif -%}
+
+              {%- if block.settings.title != blank -%}
+                <h2 class="images-scrolling__heading">{{ block.settings.title | escape }}</h2>
+              {%- endif -%}
+
+              {%- if block.settings.content != blank -%}
+                <div class="images-scrolling__body">{{ block.settings.content }}</div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="images-scrolling-desktop__media-wrapper">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: block.settings.image.width
+              | image_tag:
+                loading: 'lazy',
+                sizes: '(max-width: 699px) 100vw, 650px',
+                widths: '200,300,400,600,800,1000,1200,1400,1600'
+            }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag }}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </images-with-text-scrolling>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Images and text scrolling",
+  "tag": "section",
+  "class": "section section-images-with-text-scrolling",
+  "max_blocks": 15,
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "info": "Used by toolbar Details link (e.g. detail)",
+      "default": "detail"
+    },
+    { "type": "checkbox", "id": "full_width", "label": "Full width", "default": true },
+    { "type": "checkbox", "id": "stack_on_mobile", "label": "Stack on mobile", "default": false },
+    { "type": "checkbox", "id": "show_counter", "label": "Show counter", "default": true },
+    {
+      "type": "select",
+      "id": "desktop_image_effect",
+      "label": "Desktop image transition",
+      "options": [
+        { "value": "reveal", "label": "Reveal" },
+        { "value": "fade", "label": "Fade" }
+      ],
+      "default": "reveal"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "start", "label": "Left" },
+        { "value": "end", "label": "Right" }
+      ],
+      "default": "end"
+    },
+    { "type": "color", "id": "background", "label": "Background", "default": "#1a1a1a" },
+    { "type": "color_background", "id": "background_gradient", "label": "Background gradient" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#ffffff" },
+    { "type": "color", "id": "heading_color", "label": "Heading color" },
+    { "type": "color_background", "id": "heading_gradient", "label": "Heading gradient" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "1200 x 1600px .jpg recommended" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [{ "value": "none", "label": "None" }],
+          "default": "none"
+        },
+        { "type": "image_picker", "id": "custom_icon", "label": "Custom icon" },
+        {
+          "type": "range",
+          "id": "icon_width",
+          "min": 24,
+          "max": 120,
+          "step": 4,
+          "unit": "px",
+          "label": "Icon width",
+          "default": 48
+        },
+        { "type": "text", "id": "title", "label": "Heading", "default": "Heading" },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Share product highlights and benefits here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Images and text scrolling",
+      "blocks": [
+        { "type": "item", "settings": { "title": "Heading 1" } },
+        { "type": "item", "settings": { "title": "Heading 2" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

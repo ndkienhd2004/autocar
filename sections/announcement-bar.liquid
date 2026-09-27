@@ -1,0 +1,223 @@
+{%- liquid
+  assign bg = section.settings.background | default: '#ef6d23'
+  assign fg = section.settings.text_color | default: '#ffffff'
+  assign scroll_speed = section.settings.scrolling_speed | default: 20
+  assign enable_scroll = section.settings.enable_scrolling
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .announcement-bar-impact {
+    background: {{ bg }};
+    color: {{ fg }};
+    padding: {{ section.settings.padding_y | default: 14 }}px 0;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .announcement-bar-impact a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .announcement-bar-impact__message {
+    margin: 0;
+    font-family: Roboto, sans-serif;
+    font-size: {{ section.settings.font_size | default: 16 }}px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: normal;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .announcement-bar-impact--static {
+    text-align: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .announcement-bar-impact--scrolling {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .announcement-bar-impact__track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    animation: announcement-marquee-{{ section.id }} linear infinite;
+    animation-duration: {{ scroll_speed }}s;
+  }
+
+  #shopify-section-{{ section.id }} .announcement-bar-impact__track:hover {
+    animation-play-state: paused;
+  }
+
+  #shopify-section-{{ section.id }} .announcement-bar-impact__group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-right: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .announcement-bar-impact__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.85;
+    flex-shrink: 0;
+  }
+
+  @keyframes announcement-marquee-{{ section.id }} {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .announcement-bar-impact__track {
+      animation: none;
+      justify-content: center;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .announcement-bar-impact__message {
+      font-size: 12px !important;
+    }
+    .announcement-bar-impact {
+      padding: 10px 0;
+    }
+  }
+{%- endstyle -%}
+
+{%- if section.blocks.size > 0 -%}
+  <div
+    class="announcement-bar-impact{% if enable_scroll %} announcement-bar-impact--scrolling{% else %} announcement-bar-impact--static{% endif %}"
+    role="region"
+    aria-label="{{ 'sections.header.announcement' | t }}"
+  >
+    {%- if enable_scroll -%}
+      <div class="announcement-bar-impact__track">
+        {%- for copy in (1..2) -%}
+          <div class="announcement-bar-impact__group"{% if copy > 1 %} aria-hidden="true"{% endif %}>
+            {%- for i in (1..6) -%}
+              {%- for block in section.blocks -%}
+                {%- if block.settings.text != blank -%}
+                  <p class="announcement-bar-impact__message" {{ block.shopify_attributes }}>
+                    {%- if block.settings.link != blank -%}
+                      <a href="{{ block.settings.link }}">{{ block.settings.text | escape }}</a>
+                    {%- else -%}
+                      {{ block.settings.text | escape }}
+                    {%- endif -%}
+                  </p>
+                  <span class="announcement-bar-impact__dot"></span>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endfor -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      {%- assign first_block = section.blocks.first -%}
+      {%- if first_block.settings.text != blank -%}
+        <p class="announcement-bar-impact__message">
+          {%- if first_block.settings.link != blank -%}
+            <a href="{{ first_block.settings.link }}">{{ first_block.settings.text | escape }}</a>
+          {%- else -%}
+            {{ first_block.settings.text | escape }}
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.announcement-bar.name",
+  "max_blocks": 12,
+  "class": "announcement-bar-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_scrolling",
+      "label": "Enable scrolling text (marquee)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "scrolling_speed",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "unit": "s",
+      "label": "Scrolling speed (duration)",
+      "default": 40,
+      "info": "Higher = slower"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "min": 6,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ef6d23"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "t:sections.announcement-bar.blocks.announcement.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "🎁 50% OFF for Seat Covers - Free Shipping - Get 2 Free Neck Pillows Value At 69$",
+          "label": "t:sections.announcement-bar.blocks.announcement.settings.text.label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.announcement-bar.blocks.announcement.settings.link.label"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "announcement"
+      }
+    ]
+  }
+}
+{% endschema %}

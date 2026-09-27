@@ -1,0 +1,491 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "vehicle_selector_home": {
+      "type": "vehicle-selector",
+      "settings": {
+        "heading": "Select your vehicle",
+        "button_label": "Let's go",
+        "background_image": "",
+        "background_color": "#171717",
+        "color_scheme": "scheme-1",
+        "review_text": "4.9/5 from 1,411 Verified Reviews",
+        "hero_heading": "CUSTOM FIT FOR YOUR RIDE",
+        "promo_text": "🔥 $120 FREE GIFTS — NECK PILLOW + STEERING COVER | ONLY AT AUTO CAR UNIVERSE"
+      }
+    },
+    "slideshow_JhUfxA": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_z8R7dt": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/banner_23.jpg",
+            "mobile_image": "shopify://shop_images/O1CN01IEcn5y24Z5QaBBdyA__2208113757404-0-cib.webp",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_xaMPMy": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Buture_VAC01_Vacuum.jpg",
+            "mobile_image": "shopify://shop_images/O1CN01RdMxXU24Z5QYKKjtL__2208113757404-0-cib.webp",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_hy7J6h": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/buture-x9-banner_pc.jpg",
+            "mobile_image": "shopify://shop_images/compressed_under_20mb.gif",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_VacBky": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Buture_Beta07_Car_Jump_Starter_Banner.jpg",
+            "mobile_image": "shopify://shop_images/O1CN019dgHUf1FSB2s1dssR__2218520485-0-cib_2438b3d6-ded5-4cfd-b457-3746e91da08d.jpg",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "slide_z8R7dt",
+        "slide_xaMPMy",
+        "slide_hy7J6h",
+        "slide_VacBky"
+      ],
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "adapt_image",
+        "slider_visual": "counter",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": true,
+        "accessibility_info": "Slideshow about our brand"
+      },
+      "disabled": true
+    },
+    "media_grid_6Yhwdm": {
+      "type": "media-grid",
+      "blocks": {
+        "image_7rDeKV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten_13.png",
+            "title": "Seat Covers",
+            "heading_tag": "h3",
+            "link_url": "/collections/all",
+            "link_text": "",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_8z4JAJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Car_Jump_Starters.jpg",
+            "title": "Jump Starter",
+            "heading_tag": "h6",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_Vtkahm": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten_15.png",
+            "title": "Car Accessories",
+            "heading_tag": "h6",
+            "link_url": "/collections/all",
+            "link_text": "",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_34e66z": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Flash_Deals.jpg",
+            "title": "Flash Sale",
+            "heading_tag": "h6",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "image_7rDeKV",
+        "image_8z4JAJ",
+        "image_Vtkahm",
+        "image_34e66z"
+      ],
+      "name": "Media grid",
+      "settings": {
+        "full_width": false,
+        "gap": 40,
+        "card_radius": 8,
+        "desktop_row_height": 270,
+        "mobile_row_height": 150,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_mqwWYm": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "title": "Featured collection",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "newsletter_QTNtTD": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_LtKk8a": {
+          "type": "heading",
+          "settings": {
+            "heading": "Let’s keep in touch.",
+            "heading_size": "h1"
+          }
+        },
+        "paragraph_MHdMPd": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Subscribe to be the first to receive our latest news and exclusive deals!</p>"
+          }
+        },
+        "email_form_PP4Www": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_LtKk8a",
+        "paragraph_MHdMPd",
+        "email_form_PP4Www"
+      ],
+      "name": "t:sections.newsletter.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "why_autocar_home": {
+      "type": "why_autocar",
+      "settings": {
+        "eyebrow": "Tailored. Tested. Trusted.",
+        "heading": "Why AutoCar?",
+        "seat_image": "",
+        "seat_card_title": "Custom-Fit Seat Covers",
+        "seat_link": "/products/luxury-seat-covers",
+        "seat_heading": "Seat covers that fit. And stay.",
+        "card_cta": "Shop Now",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "review_tabs_home": {
+      "type": "review_tabs",
+      "settings": {
+        "heading_before": "Trusted by",
+        "heading_highlight": "100,000+",
+        "heading_after": "Happy Drivers",
+        "subheading": "See What Auto Car Universe Customers Are Loving",
+        "video_label": "Video Reviews",
+        "photo_label": "Photo Reviews",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "confidence_home": {
+      "type": "confidence",
+      "settings": {
+        "heading": "Buy with confidence",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "lab_tested_proof_home": {
+      "type": "lab-tested-proof",
+      "settings": {
+        "button_link": "/products/luxury-seat-covers"
+      }
+    },
+    "faq_home": {
+      "type": "faq",
+      "blocks": {
+        "header_aRQFzQ": {
+          "type": "header",
+          "settings": {
+            "title": "Compatibility And Fit"
+          }
+        },
+        "item_NN3WC8": {
+          "type": "item",
+          "settings": {
+            "title": "Are they custom-made for my car ?",
+            "content": "<p>We will customize for each car model.We don't sell universal model.</p>"
+          }
+        },
+        "item_WdYTpz": {
+          "type": "item",
+          "settings": {
+            "title": "Do the rear seat covers accommodate a split bench or a full bench seat ?",
+            "content": "<p>They accommodate a split bench, specifically 60/40 and even 40/20/40 to be precise. </p>"
+          }
+        },
+        "item_UbEY36": {
+          "type": "item",
+          "settings": {
+            "title": "Do you offer a seat cover for the middle front seat, armrests and console ?",
+            "content": "<p>Absolutely Yes! Our \"Bundle Set\" will include the middle front seat,armrests and console too.</p>"
+          }
+        },
+        "header_bkbiUK": {
+          "type": "header",
+          "settings": {
+            "title": "Material And Design"
+          }
+        },
+        "item_VHkMia": {
+          "type": "item",
+          "settings": {
+            "title": "What is material of your car seat covers ?",
+            "content": "<p>They are made from premium <strong>Nappa </strong>leather. This material is durable, breathable and gives a luxurious look and feel.</p>"
+          }
+        },
+        "item_dyCrat": {
+          "type": "item",
+          "settings": {
+            "title": "Are the seat covers breathable and comfortable during long drives ?",
+            "content": "<p>Absolutely! We've incorporated breathable cushioning for cool comfort in any climate.</p>"
+          }
+        },
+        "item_8cgfVA": {
+          "type": "item",
+          "settings": {
+            "title": "What is the different of your seat covers with other brands ?",
+            "content": "<p>Our seat cover was custom-made for customer car model.Especially, we will give customer <strong>2 Free Neck Pillows.</strong></p>"
+          }
+        },
+        "header_H7J86N": {
+          "type": "header",
+          "settings": {
+            "title": "Installation"
+          }
+        },
+        "item_XJKEG4": {
+          "type": "item",
+          "settings": {
+            "title": "How easy are these seats to install ?",
+            "content": "<p>The installation process is <strong>quite simple. </strong>With just simple steps that typically take around <strong>15 minutes.</strong></p>"
+          }
+        },
+        "item_qNPJqE": {
+          "type": "item",
+          "settings": {
+            "title": "Can I install it by myself ?",
+            "content": "<p>Absolutely! Our seat covers are designed with <strong>no special tool</strong>. You can install it at home by yourself.</p>"
+          }
+        },
+        "item_Be6Rad": {
+          "type": "item",
+          "settings": {
+            "title": "Is there a guide or manual available for installation ?",
+            "content": "<p>Yes, we provide multiple resources for installation guidance. You can access a <a href=\"https://www.youtube.com/watch?v=6CItbn0Gj1g\" target=\"_blank\" title=\"https://www.youtube.com/watch?v=6CItbn0Gj1g\">video guide </a>and a PDF manual. Additionally, a paper manual is included in every package.</p>"
+          }
+        },
+        "header_XqpKaf": {
+          "type": "header",
+          "settings": {
+            "title": "Shipping And Warranty"
+          }
+        },
+        "item_XU48KR": {
+          "type": "item",
+          "settings": {
+            "title": "How long does shipping take?",
+            "content": "<p>You will receive your order within <strong>7-15 days</strong> as we need extra time to <strong>customize for your vehicle</strong>.</p>"
+          }
+        },
+        "item_8H3fiE": {
+          "type": "item",
+          "settings": {
+            "title": "Is Free Shipping available ?",
+            "content": "<p>Absolutely! We offer <strong>Free Shipping across the entire United States</strong>.</p>"
+          }
+        },
+        "item_xdgfBE": {
+          "type": "item",
+          "settings": {
+            "title": "What's about Warranty Policy ?",
+            "content": "<p>We provide a <strong>2-year warranty</strong> and a <strong>30-days free return policy</strong>. You can <strong>return the product within 30 days</strong> if you're not satisfied.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "header_aRQFzQ",
+        "item_NN3WC8",
+        "item_WdYTpz",
+        "item_UbEY36",
+        "header_bkbiUK",
+        "item_VHkMia",
+        "item_dyCrat",
+        "item_8cgfVA",
+        "header_H7J86N",
+        "item_XJKEG4",
+        "item_qNPJqE",
+        "item_Be6Rad",
+        "header_XqpKaf",
+        "item_XU48KR",
+        "item_8H3fiE",
+        "item_xdgfBE"
+      ],
+      "settings": {
+        "anchor_id": "faq",
+        "subheading": "",
+        "title": "FAQ",
+        "content": "",
+        "button_text": "View More FAQs",
+        "button_url": "/blogs/faq",
+        "text_alignment": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "button_background": "#1a1a1a",
+        "button_text_color": "#ee6819",
+        "accordion_background": "",
+        "accordion_text_color": ""
+      }
+    }
+  },
+  "order": [
+    "vehicle_selector_home",
+    "media_grid_6Yhwdm",
+    "why_autocar_home",
+    "review_tabs_home",
+    "confidence_home",
+    "lab_tested_proof_home",
+    "slideshow_JhUfxA",
+    "featured_collection_mqwWYm",
+    "faq_home",
+    "newsletter_QTNtTD"
+  ]
+}

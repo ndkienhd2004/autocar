@@ -1,0 +1,1285 @@
+/* =============================================================================
+   Impact theme tokens (heading_font_size: large)
+   Source: theme c?/snippets/css-variables.liquid
+
+   IMPORTANT: Impact root ? 16px/rem. Dawn uses html { font-size: 62.5% }
+   so 1rem ? 10px. Multiply Impact rem values by 1.6 to keep the same px.
+   ============================================================================= */
+body.seat-covers1-template {
+  /* Impact settings: heading_font + text_font = roboto_n4; letter-spacing heading = -2 */
+  --font-heading-family: Roboto, sans-serif;
+  --font-body-family: Roboto, sans-serif;
+  --heading-letter-spacing: -0.02em;
+  font-family: Roboto, sans-serif !important;
+  font-size: var(--text-base);
+  letter-spacing: normal;
+  line-height: 1.6;
+
+  --impact-to-dawn: 1.6; /* 16px Impact root / 10px Dawn root */
+
+  /* Mobile (<700) ? large ? Impact rem ? 1.6 */
+  --text-h0: calc(3rem * var(--impact-to-dawn));      /* 48px */
+  --text-h1: calc(2.5rem * var(--impact-to-dawn));    /* 40px */
+  --text-h2: calc(2rem * var(--impact-to-dawn));      /* 32px */
+  --text-h3: calc(1.5rem * var(--impact-to-dawn));    /* 24px */
+  --text-h4: calc(1.375rem * var(--impact-to-dawn));  /* 22px */
+  --text-h5: calc(1.125rem * var(--impact-to-dawn));  /* 18px */
+  --text-h6: calc(1rem * var(--impact-to-dawn));      /* 16px */
+  /* body default mobile 14px */
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-base: 14px;
+  --text-lg: 18px;
+
+  --impact-on-sale-badge-bg: 238 104 25;
+  --impact-text: 26 26 26;
+  /* Impact spacing (px ? avoid Dawn rem mismatch) */
+  --impact-spacing-1: 4px;
+  --impact-spacing-2: 8px;
+  --impact-spacing-3: 12px;
+  --impact-spacing-4: 16px;
+  --impact-spacing-6: 24px;
+  --rounded-button: 10px;
+
+  /* aliases used by lower sections */
+  --seat-covers-text-base: var(--text-base);
+  --seat-covers-h1: var(--text-h1);
+  --seat-covers-h2: var(--text-h2);
+  --seat-covers-h3: var(--text-h3);
+  --seat-covers-h4: var(--text-h4);
+  --seat-covers-h5: var(--text-h5);
+  --seat-covers-h6: var(--text-h6);
+  --impact-text-h4: var(--text-h4);
+  --impact-text-lg: var(--text-lg);
+}
+
+@media screen and (min-width: 700px) {
+  body.seat-covers1-template {
+    --text-h0: calc(4rem * var(--impact-to-dawn));      /* 64px */
+    --text-h1: calc(3rem * var(--impact-to-dawn));      /* 48px */
+    --text-h2: calc(2.5rem * var(--impact-to-dawn));    /* 40px */
+    --text-h3: calc(2rem * var(--impact-to-dawn));      /* 32px */
+    --text-h4: calc(1.625rem * var(--impact-to-dawn));  /* 26px */
+    --text-h5: calc(1.25rem * var(--impact-to-dawn));   /* 20px */
+    --text-h6: calc(1.125rem * var(--impact-to-dawn));  /* 18px */
+    /* body default desktop 16px */
+    --text-xs: 12px;
+    --text-sm: 14px;
+    --text-base: 16px;
+    --text-lg: 20px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  body.seat-covers1-template {
+    --text-h0: calc(5rem * var(--impact-to-dawn));      /* 80px */
+    --text-h1: calc(3.75rem * var(--impact-to-dawn));   /* 60px */
+    --text-h2: calc(3rem * var(--impact-to-dawn));      /* 48px */
+    --text-h3: calc(2.25rem * var(--impact-to-dawn));   /* 36px */
+    --text-h4: calc(2rem * var(--impact-to-dawn));      /* 32px */
+    --text-h5: calc(1.5rem * var(--impact-to-dawn));    /* 24px */
+    --text-h6: calc(1.25rem * var(--impact-to-dawn));   /* 20px */
+  }
+}
+
+/* Utility classes matching Impact */
+body.seat-covers1-template .text-subdued { color: rgb(var(--impact-text) / 0.7); }
+body.seat-covers1-template .text-lg { font-size: var(--text-lg) !important; line-height: 1.6; }
+body.seat-covers1-template .text-base { font-size: var(--text-base); line-height: 1.6; }
+body.seat-covers1-template .text-sm { font-size: var(--text-sm); line-height: 1.6; }
+body.seat-covers1-template .text-xs { font-size: var(--text-xs); line-height: 1.7; }
+body.seat-covers1-template .text-on-sale { color: #000; }
+body.seat-covers1-template .text-red { color: red; }
+body.seat-covers1-template .line-through { text-decoration: line-through; }
+body.seat-covers1-template .h-stack { display: flex; align-items: center; }
+body.seat-covers1-template .gap-2 { gap: var(--impact-spacing-2); }
+
+body.seat-covers1-template .h0,
+body.seat-covers1-template .h1,
+body.seat-covers1-template .h2,
+body.seat-covers1-template .h3,
+body.seat-covers1-template .h4,
+body.seat-covers1-template .h5,
+body.seat-covers1-template .h6,
+body.seat-covers1-template h1,
+body.seat-covers1-template h2,
+body.seat-covers1-template h3,
+body.seat-covers1-template h4,
+body.seat-covers1-template h5,
+body.seat-covers1-template h6 {
+  font-family: Roboto, sans-serif !important;
+  letter-spacing: var(--heading-letter-spacing);
+}
+
+body.seat-covers1-template,
+body.seat-covers1-template button,
+body.seat-covers1-template input,
+body.seat-covers1-template select,
+body.seat-covers1-template textarea {
+  font-family: Roboto, sans-serif !important;
+}
+
+body.seat-covers1-template .h0 { font-size: var(--text-h0) !important; line-height: 1; }
+body.seat-covers1-template .h1 { font-size: var(--text-h1) !important; line-height: 1.1; }
+body.seat-covers1-template .h2 { font-size: var(--text-h2) !important; line-height: 1.1; }
+body.seat-covers1-template .h3 { font-size: var(--text-h3) !important; line-height: 1.2; }
+body.seat-covers1-template .h4 { font-size: var(--text-h4) !important; line-height: 1.3; }
+body.seat-covers1-template .h5 { font-size: var(--text-h5) !important; line-height: 1.4; }
+body.seat-covers1-template .h6 { font-size: var(--text-h6) !important; line-height: 1.4; }
+
+body.seat-covers1-template .seat-cover-story__content h2,
+body.seat-covers1-template .faq-section__title {
+  font-size: 42px !important;
+  line-height: 1.15 !important;
+  font-weight: 700 !important;
+}
+
+body.seat-covers1-template .seat-cover-story__content,
+body.seat-covers1-template .seat-cover-story__content p,
+body.seat-covers1-template .faq-section,
+body.seat-covers1-template .faq-section__answer {
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+body.seat-covers1-template .faq-section__item summary {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.45 !important;
+}
+
+body.seat-covers1-template .faq-section__group-title {
+  color: #c95656 !important;
+  font-size: 24px !important;
+  font-weight: 400 !important;
+}
+
+/* Product accordion ? Impact uses body text + bold, not .h4 heading scale
+   Sample (WhatFont): Roboto 700/400 ? 16px ? line-height 26px ? #1a1a1a */
+body.seat-covers1-template .product__accordion--seat-covers {
+  margin-top: 0;
+  margin-bottom: 0;
+  border-top: 1px solid rgba(26, 26, 26, 0.12);
+  border-bottom: 1px solid rgba(26, 26, 26, 0.12);
+}
+body.seat-covers1-template .product__accordion--seat-covers + .product__accordion--seat-covers {
+  border-top: none;
+}
+body.seat-covers1-template .product__accordion--seat-covers summary {
+  padding: 20px 0;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.6;
+}
+body.seat-covers1-template .product__accordion--seat-covers .accordion__title {
+  font-family: Roboto, sans-serif !important;
+  font-size: var(--text-base) !important; /* 16px desktop / 14px mobile */
+  font-weight: 700 !important;
+  font-style: normal;
+  line-height: 1.6 !important; /* 26px @ 16px */
+  letter-spacing: normal !important;
+  color: #1a1a1a;
+  max-width: calc(100% - 2rem);
+}
+body.seat-covers1-template .product__accordion--seat-covers .accordion__icon-plus {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: #c95656;
+  margin-left: auto;
+}
+body.seat-covers1-template .product__accordion--seat-covers .accordion__icon-plus .icon-plus {
+  width: 18px;
+  height: 18px;
+}
+body.seat-covers1-template .product__accordion--seat-covers .accordion__content {
+  margin-bottom: 20px;
+  padding: 0;
+  font-family: Roboto, sans-serif !important;
+  font-size: var(--text-base) !important;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: normal;
+  color: #1a1a1a;
+}
+body.seat-covers1-template .product__accordion--seat-covers .accordion__content p,
+body.seat-covers1-template .product__accordion--seat-covers .accordion__content li,
+body.seat-covers1-template .product__accordion--seat-covers .accordion__content ul,
+body.seat-covers1-template .product__accordion--seat-covers .accordion__content ol {
+  font-family: Roboto, sans-serif !important;
+  font-size: var(--text-base) !important;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: normal;
+  color: #1a1a1a;
+}
+body.seat-covers1-template .product__accordion--seat-covers .accordion__content strong,
+body.seat-covers1-template .product__accordion--seat-covers .accordion__content b {
+  font-weight: 700;
+}
+body.seat-covers1-template .product__accordion--seat-covers .accordion__content a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+body.seat-covers1-template .rich-text__heading.h2 { font-size: var(--text-h2); line-height: 1.1; }
+body.seat-covers1-template .rich-text__text h1 { font-size: var(--text-h1); line-height: 1.1; }
+body.seat-covers1-template .rich-text__text h2 { font-size: var(--text-h2); line-height: 1.1; }
+body.seat-covers1-template .rich-text__text h3 { font-size: var(--text-h3); line-height: 1.2; }
+body.seat-covers1-template .rich-text__text h4 { font-size: var(--text-h4); line-height: 1.3; }
+body.seat-covers1-template .rich-text__text h5 { font-size: var(--text-h5); line-height: 1.4; }
+body.seat-covers1-template .rich-text__text h6 { font-size: var(--text-h6); line-height: 1.4; }
+body.seat-covers1-template .rich-text__text p { font-size: var(--text-base); line-height: 1.6; }
+
+/* --- Product info header --- */
+body.seat-covers1-template .product__info-container > .product__title,
+body.seat-covers1-template .product__info-container > .product-info__liquid,
+body.seat-covers1-template .product__info-container > .product-info__price,
+body.seat-covers1-template .product__info-container > .product-info__block-item--badges {
+  margin-top: 0;
+  margin-bottom: var(--impact-spacing-2);
+}
+
+body.seat-covers1-template .product-info__block-item--badges:empty {
+  display: none;
+}
+
+body.seat-covers1-template .product__title {
+  margin: 0 0 var(--impact-spacing-2);
+}
+
+/* h1.product-info__title.h4 */
+body.seat-covers1-template .product-info__title.h4,
+body.seat-covers1-template h1.product-info__title,
+body.seat-covers1-template .product__title .product-info__title.h4 {
+  color: rgb(var(--impact-text));
+  font-family: Roboto, sans-serif !important;
+  font-size: var(--text-h4) !important;
+  font-weight: 400;
+  letter-spacing: var(--heading-letter-spacing);
+  line-height: 1.3;
+  margin: 0;
+  text-transform: none;
+}
+
+/* vote-star */
+body.seat-covers1-template .product-info__liquid {
+  margin: 0 0 var(--impact-spacing-2);
+}
+body.seat-covers1-template .product-info__liquid a {
+  text-decoration: none;
+  color: inherit;
+}
+body.seat-covers1-template .group-review-start,
+body.seat-covers1-template .gr-star {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+body.seat-covers1-template .group-review-start {
+  gap: 5px;
+  color: rgb(var(--impact-text));
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.6;
+}
+body.seat-covers1-template .gr-star {
+  margin-top: -3px;
+  gap: 2px;
+}
+body.seat-covers1-template .gr-star div,
+body.seat-covers1-template .star-app-review {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+body.seat-covers1-template .star-app-review {
+  /* Override Dawn div:empty { display: none } */
+  display: block !important;
+  background: gold;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+}
+
+/* price-list + badge */
+body.seat-covers1-template .product-info__price {
+  margin: 0 0 var(--impact-spacing-2);
+}
+body.seat-covers1-template .product-info__price .rating-with-text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--impact-spacing-1) var(--impact-spacing-2);
+}
+body.seat-covers1-template .product-info__price .price-list {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.125rem var(--impact-spacing-2);
+}
+body.seat-covers1-template .product-info__price .price-list--lg {
+  gap: var(--impact-spacing-3);
+}
+body.seat-covers1-template .product-info__price .sale-price.text-lg,
+body.seat-covers1-template .product-info__price .text-lg {
+  font-size: var(--text-lg) !important;
+  line-height: 1.6;
+}
+body.seat-covers1-template .product-info__price .text-on-sale {
+  color: #000;
+  font-weight: 600;
+}
+body.seat-covers1-template .product-info__price .compare-at-price,
+body.seat-covers1-template .product-info__price .text-red {
+  color: red;
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.6;
+}
+body.seat-covers1-template .product-info__price .line-through {
+  text-decoration: line-through;
+}
+body.seat-covers1-template .product-info__price .product-info__badge-list {
+  align-self: center;
+  margin-inline-start: var(--impact-spacing-1);
+  display: flex;
+  gap: var(--impact-spacing-2);
+}
+body.seat-covers1-template .product-info__price .badge {
+  align-items: center;
+  gap: 0.375rem;
+  padding: 3px var(--impact-spacing-2);
+  width: max-content;
+  border-radius: var(--rounded-button);
+  font-size: 9px;
+  font-weight: 700;
+  display: inline-flex;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+}
+body.seat-covers1-template .product-info__price .badge--on-sale {
+  background: rgb(var(--impact-on-sale-badge-bg));
+  color: #fff;
+}
+
+body.seat-covers1-template .product__info-container .product__tax,
+body.seat-covers1-template .product__info-container .installment {
+  display: none !important;
+}
+body.seat-covers1-template .product__custom-property--hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Variant STEP labels ? Impact seat-covers: option name only, bold black */
+body.seat-covers1-template .product-form__input--seat-covers > .form__label.product-form__option-name {
+  color: #1a1a1a;
+  font-size: var(--text-base);
+  font-weight: 700;
+  margin-bottom: var(--impact-spacing-2);
+  padding: 0;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.6;
+}
+
+/* Quantity label ? Impact .block-label.text-subdued */
+body.seat-covers1-template .product-form__quantity .form__label,
+body.seat-covers1-template .product__info-container .quantity__label,
+body.seat-covers1-template label.block-label.text-subdued {
+  color: rgb(var(--impact-text) / 0.7) !important;
+  font-size: var(--text-base) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+body.seat-covers1-template .product__info-container { max-width: none; min-width: 0; }
+body.seat-covers1-template .product__info-container > * { margin-top: 0; margin-bottom: var(--impact-spacing-6); min-width: 0; max-width: 100%; }
+body.seat-covers1-template .product__info-container .product__text { color: rgb(var(--impact-text) / 0.7); font-size: var(--text-xs); }
+body.seat-covers1-template .product__info-container .top-review,
+body.seat-covers1-template .product__info-container .top-review img {
+  max-width: 100%;
+}
+
+/* Top Review ? lock Impact sizes; beat Dawn h2/h4 heading scale + link color */
+body.seat-covers1-template .top-review__heading {
+  font-family: Roboto, sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 500 !important;
+  letter-spacing: normal !important;
+  line-height: 1.3 !important;
+  color: #1a1a1a;
+  margin: 0 0 10px !important;
+}
+body.seat-covers1-template .top-review .review-title-app-review,
+body.seat-covers1-template .top-review h2.review-title-app-review,
+body.seat-covers1-template h2.review-title-app-review {
+  font-family: Roboto, sans-serif !important;
+  font-size: 30px !important;
+  font-weight: 700 !important;
+  letter-spacing: normal !important;
+  line-height: 1.3 !important;
+  color: #09090b !important;
+  margin: 0 0 12px !important;
+}
+@media screen and (max-width: 768px) {
+  body.seat-covers1-template .top-review .review-title-app-review,
+  body.seat-covers1-template .top-review h2.review-title-app-review,
+  body.seat-covers1-template h2.review-title-app-review {
+    font-size: 16px !important;
+  }
+  body.seat-covers1-template .top-review .review-content-app-review p,
+  body.seat-covers1-template .top-review .review-author-app-review {
+    font-size: 14px !important;
+  }
+}
+body.seat-covers1-template .top-review .review-meta-app-review .stars-app-review {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-right: 10px;
+}
+body.seat-covers1-template .top-review .review-meta-app-review .star-app-review {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  background: gold;
+  flex-shrink: 0;
+}
+body.seat-covers1-template .top-review .review-date-app-review {
+  font-size: 14px !important;
+  color: #737373;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+body.seat-covers1-template .top-review .badge-app-review {
+  font-size: 14px !important;
+  font-weight: 600;
+  letter-spacing: normal;
+  color: #1d8044;
+}
+body.seat-covers1-template .top-review .review-content-app-review p {
+  font-family: Roboto, sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 400;
+  line-height: 1.6 !important;
+  letter-spacing: normal;
+  color: #1a1a1a;
+}
+body.seat-covers1-template .top-review .review-author-app-review {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #767676;
+  letter-spacing: normal;
+  line-height: 1.4;
+}
+body.seat-covers1-template .top-review .like-icon-app-review,
+body.seat-covers1-template .top-review .review-actions-app-review {
+  font-size: 16px !important;
+  font-weight: 400;
+  color: #1a1a1a;
+  letter-spacing: normal;
+}
+body.seat-covers1-template .btn-view-all-top-comment a {
+  font-family: Roboto, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400;
+  color: #1a1a1a !important;
+  text-decoration: none !important;
+  letter-spacing: normal;
+}
+body.seat-covers1-template .btn-view-all-top-comment a:hover {
+  color: #1a1a1a !important;
+  text-decoration: underline !important;
+}
+
+@media screen and (min-width: 700px) {
+  body.seat-covers1-template .product__info-container > .product__title,
+  body.seat-covers1-template .product__info-container > .product-info__liquid,
+  body.seat-covers1-template .product__info-container > .product-info__price {
+    margin-bottom: var(--impact-spacing-4);
+  }
+}
+
+body.seat-covers1-template .product-form__input { margin: 0 0 var(--impact-spacing-6); max-width: none; }
+/* strong is a sibling before .dropdown-container, not a child */
+body.seat-covers1-template .vehicle-select-label,
+body.seat-covers1-template strong:has(+ .dropdown-container) {
+  color: #1a1a1a;
+  font-family: Roboto, sans-serif !important;
+  font-size: var(--text-base); /* 16px desktop ? matches Impact */
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  display: block;
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+body.seat-covers1-template .product-form__input:not(.product-form__input--seat-covers) .form__label {
+  color: #333;
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: var(--impact-spacing-2);
+}
+
+/* Override Dawn pills ? match Impact block / banner / thumbnail steps */
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio'] + label {
+  border: none;
+  background: transparent;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  letter-spacing: 0;
+  line-height: inherit;
+  text-align: left;
+  box-shadow: none;
+}
+/* Hide Dawn drop-shadow :before only ? keep Impact swatch selection rings */
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio'] + label:not(.block-swatch):not(.thumbnail-swatch):before {
+  display: none;
+}
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio'] + label:hover { border-color: transparent; }
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio']:checked + label {
+  background: transparent;
+  color: inherit;
+}
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio']:focus-visible + label {
+  box-shadow: none;
+  outline: 2px solid #ef6d23;
+  outline-offset: 4px;
+}
+
+body.seat-covers1-template .product-form__option-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+body.seat-covers1-template .product-form__option-values--seat-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+body.seat-covers1-template .product-form__option-values--variant-image {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Higher specificity than Dawn pill reset so borders stick */
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio'] + .block-swatch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 20px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: none;
+}
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio'] + .block-swatch:before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 3px #ef6d23;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity .2s ease-in-out, transform .2s ease-in-out;
+  pointer-events: none;
+  z-index: 1;
+}
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio']:checked + .block-swatch:before {
+  opacity: 1;
+  transform: scale(1);
+}
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio'] + .block-swatch.is-disabled,
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio'].disabled + .block-swatch {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio'] + .seat-step-swatch {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  border: 2px solid #000;
+  background: transparent;
+}
+
+body.seat-covers1-template .tb-banner {
+  background: #f0f0f0;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 14px 20px 14px 16px;
+  position: relative;
+  width: 100%;
+}
+body.seat-covers1-template input[type='radio']:checked + .block-swatch .tb-banner {
+  background: #eaf6fb;
+}
+body.seat-covers1-template .tb-best-value-badge {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  background: #ef6d23;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 0 3px;
+  border-radius: 0 5px 0 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+body.seat-covers1-template .tb-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+body.seat-covers1-template .tb-green-dot {
+  /* Override Dawn base.css div:empty { display: none } */
+  display: block;
+  box-sizing: border-box;
+  border: 1px solid #151515;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  flex-shrink: 0;
+}
+body.seat-covers1-template input[type='radio']:checked + .block-swatch .tb-green-dot {
+  background: #ef6d23;
+  border-color: #ef6d23;
+}
+body.seat-covers1-template .tb-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #000;
+  color: #fff;
+  border-radius: 6px;
+  padding: 0 3px;
+  font-size: 10px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+body.seat-covers1-template .tb-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.2;
+}
+body.seat-covers1-template .tb-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+body.seat-covers1-template .tb-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: #fff;
+  padding: 3px;
+}
+body.seat-covers1-template .tb-old-price {
+  font-size: 14px;
+  color: #e8303a;
+  text-decoration: line-through;
+  font-weight: 400;
+}
+body.seat-covers1-template .tb-new-price {
+  font-size: 16px;
+  font-weight: 800;
+  color: #000;
+  line-height: 1;
+}
+body.seat-covers1-template .tb-save-badge {
+  background: #ef6d23;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio'] + .thumbnail-swatch {
+  --swatch-size: 100px;
+  width: var(--swatch-size);
+  height: auto;
+  border-radius: 4px;
+  display: block;
+  position: relative;
+  padding: 10px 10px 0;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio'] + .thumbnail-swatch.border {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio'] + .thumbnail-swatch:before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 2px #151515;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity .2s ease-in-out, transform .2s ease-in-out;
+  pointer-events: none;
+  z-index: 1;
+}
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio']:checked + .thumbnail-swatch:before {
+  opacity: 1;
+  transform: scale(1);
+}
+body.seat-covers1-template .thumbnail-swatch__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  object-fit: cover;
+}
+body.seat-covers1-template .thumbnail-swatch__label {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #151515;
+  line-height: 1.2;
+}
+body.seat-covers1-template .product-form__input--seat-covers input[type='radio'].disabled + .thumbnail-swatch {
+  opacity: 0.45;
+}
+
+@media (max-width: 575px) {
+  body.seat-covers1-template .product-form__option-values--variant-image {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  body.seat-covers1-template .product-form__input--seat-covers input[type='radio'] + .thumbnail-swatch {
+    width: 100%;
+  }
+  body.seat-covers1-template .tb-banner {
+    padding: 10px 5px 10px 5px;
+  }
+  body.seat-covers1-template .tb-left { gap: 5px; }
+  body.seat-covers1-template .tb-title { font-size: 13px; }
+  body.seat-covers1-template .tb-old-price { font-size: 12px; }
+  body.seat-covers1-template .tb-new-price { font-size: 13px; }
+}
+
+/* Quantity ? Impact .quantity-selector: inline-flex (NOT full width) */
+body.seat-covers1-template .product-form__quantity {
+  margin-bottom: var(--impact-spacing-4);
+  max-width: none;
+  width: auto;
+}
+
+body.seat-covers1-template .product-form__quantity .quantity__label,
+body.seat-covers1-template .product-form__quantity .form__label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+body.seat-covers1-template quantity-input.quantity,
+body.seat-covers1-template .quantity {
+  display: inline-flex !important;
+  align-items: center;
+  position: relative;
+  overflow: hidden; /* keep corners continuous; stop Dawn button paint clipping border */
+  isolation: isolate;
+  width: auto !important;
+  max-width: max-content !important;
+  min-width: 0;
+  min-height: 42px;
+  height: 42px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #c9c9c9 !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  background-clip: padding-box;
+  color: #1a1a1a;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+@media screen and (min-width: 700px) {
+  body.seat-covers1-template quantity-input.quantity,
+  body.seat-covers1-template .quantity {
+    min-height: 50px;
+    height: 50px;
+  }
+}
+
+/* Kill Dawn fake border (::after box-shadow) ? causes broken corners */
+body.seat-covers1-template .quantity::before,
+body.seat-covers1-template .quantity::after,
+body.seat-covers1-template quantity-input.quantity::before,
+body.seat-covers1-template quantity-input.quantity::after {
+  content: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  background: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.seat-covers1-template .quantity__button {
+  flex: 0 0 auto;
+  align-self: stretch;
+  width: auto;
+  height: auto;
+  margin: 0 !important;
+  padding: 0 20px;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: #1a1a1a;
+  font-size: 16px;
+  z-index: 0;
+}
+
+@media screen and (min-width: 700px) {
+  body.seat-covers1-template .quantity__button {
+    padding: 0 24px;
+  }
+}
+
+body.seat-covers1-template .quantity__button:hover,
+body.seat-covers1-template .quantity__button:focus,
+body.seat-covers1-template .quantity__button:focus-visible,
+body.seat-covers1-template .quantity__input:hover,
+body.seat-covers1-template .quantity__input:focus,
+body.seat-covers1-template .quantity__input:focus-visible {
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+body.seat-covers1-template .quantity__button svg {
+  width: 10px;
+  height: 10px;
+}
+
+body.seat-covers1-template .quantity__input {
+  flex: 0 0 auto;
+  align-self: stretch;
+  width: 2ch !important;
+  min-width: 24px;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  font-family: Roboto, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400;
+  color: #1a1a1a;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 1;
+  z-index: 0;
+}
+
+body.seat-covers1-template .product-form__buttons {
+  max-width: none;
+  width: 100%;
+  display: grid;
+  gap: var(--impact-spacing-4);
+}
+
+body.seat-covers1-template .product-form__submit {
+  width: 100%;
+  min-height: 52px;
+  margin: 0;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 10px;
+  background: #ee6819 !important;
+  color: #fff !important;
+  box-shadow: none;
+  font-family: Roboto, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  line-height: 1.2;
+}
+
+body.seat-covers1-template .product-form__submit:hover:not([disabled]) {
+  background: #d85c14 !important;
+  color: #fff !important;
+}
+
+body.seat-covers1-template .product-form__submit:after,
+body.seat-covers1-template .product-form__submit:before {
+  display: none !important;
+  box-shadow: none !important;
+}
+
+body.seat-covers1-template .shopify-payment-button {
+  display: none !important;
+}
+
+body.seat-covers1-template .product__media { background: #f7f7f7; }
+body.seat-covers1-template .product__media img { object-fit: cover; }
+body.seat-covers1-template .product__media-toggle { background: #fff; }
+
+/* Gift offer title under ATC */
+body.seat-covers1-template .main-title {
+  font-family: Roboto, sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 500 !important;
+  color: #1a1a1a !important;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+@media screen and (min-width: 990px) {
+  /* Same as the sample: max(48px, (viewport - 1460px) / 2) on each side. */
+  body.seat-covers1-template [id^='MainProduct-'].page-width { width: calc(100% - (var(--autofull-gutter) * 2)); max-width: 1460px; padding-left: 0; padding-right: 0; }
+  body.seat-covers1-template .product--large:not(.product--no-media) .product__media-wrapper { max-width: 55%; width: calc(55% - var(--grid-desktop-horizontal-spacing) / 2); }
+  body.seat-covers1-template .product--large:not(.product--no-media) .product__info-wrapper { max-width: 45%; width: calc(45% - var(--grid-desktop-horizontal-spacing) / 2); padding-left: 6rem; min-width: 0; }
+  body.seat-covers1-template .product--thumbnail .product__media-wrapper media-gallery { display: grid; grid-template-columns: 68px minmax(0, 1fr); column-gap: 16px; align-items: start; }
+  body.seat-covers1-template .product--thumbnail .product__media-wrapper > media-gallery > slider-component:first-of-type { grid-column: 2; grid-row: 1; min-width: 0; }
+  body.seat-covers1-template .product--thumbnail .product__media-wrapper .thumbnail-slider {
+    grid-column: 1;
+    grid-row: 1;
+    display: block;
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  body.seat-covers1-template .product--thumbnail .product__media-wrapper .thumbnail-slider::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+    width: 0;
+    height: 0;
+  }
+  body.seat-covers1-template .product--thumbnail .product__media-wrapper .thumbnail-slider > .slider-button {
+    display: none;
+  }
+  body.seat-covers1-template .product--thumbnail .product__media-wrapper .thumbnail-list {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: 64px;
+    gap: 10px;
+    padding: 0;
+    overflow: visible;
+    width: 64px;
+  }
+  body.seat-covers1-template .product--thumbnail .product__media-wrapper .thumbnail-list__item { width: 64px !important; height: 64px; }
+  body.seat-covers1-template .product--thumbnail .product__media-list { margin: 0; width: 100%; }
+  body.seat-covers1-template .product--thumbnail .product__media-item { width: 100%; }
+  body.seat-covers1-template .product--thumbnail .product__media-item:not(.is-active) { display: none; }
+  body.seat-covers1-template .product--thumbnail .thumbnail { border: 1px solid transparent; }
+  body.seat-covers1-template .product--thumbnail .thumbnail[aria-current] { border-color: #151515; box-shadow: none; }
+}
+
+/* Related products ? Impact-style hover + price colors + type */
+body.seat-covers1-template .related-products {
+  --grid-desktop-horizontal-spacing: 24px;
+  --grid-desktop-vertical-spacing: 24px;
+  --grid-mobile-horizontal-spacing: 24px;
+  --grid-mobile-vertical-spacing: 24px;
+}
+
+body.seat-covers1-template .related-products__heading,
+body.seat-covers1-template .related-products__heading.h2,
+body.seat-covers1-template .related-products__heading.h1,
+body.seat-covers1-template .related-products__heading.h0 {
+  font-family: Roboto, sans-serif !important;
+  font-size: 48px !important;
+  font-weight: 400 !important;
+  line-height: 53px !important;
+  letter-spacing: -0.02em !important;
+  color: #1a1a1a !important;
+  margin: 0 0 24px !important;
+}
+
+body.seat-covers1-template .related-products .card__heading,
+body.seat-covers1-template .related-products .card__heading.h5 {
+  font-family: Roboto, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 24px !important;
+  letter-spacing: normal !important;
+  color: #1a1a1a !important;
+  margin: 0 0 8px !important;
+}
+
+/* No title underline on hover */
+body.seat-covers1-template .related-products .card__heading a,
+body.seat-covers1-template .related-products .card__heading a:hover,
+body.seat-covers1-template .related-products .underline-links-hover:hover a {
+  text-decoration: none !important;
+  text-underline-offset: unset !important;
+}
+
+body.seat-covers1-template .related-products .card-information {
+  margin-top: 0;
+}
+
+body.seat-covers1-template .related-products .price--seat-covers,
+body.seat-covers1-template .related-products .price {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+body.seat-covers1-template .related-products .price--seat-covers .price__sale,
+body.seat-covers1-template .related-products .price--on-sale .price__sale {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.5rem;
+}
+
+body.seat-covers1-template .related-products .price--seat-covers .price-item--sale,
+body.seat-covers1-template .related-products .price--on-sale .price-item--sale {
+  color: #000000 !important;
+  font-weight: 600;
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+
+/* Compare-at: red strikethrough like Impact sample */
+body.seat-covers1-template .related-products .price--seat-covers .price-item--regular,
+body.seat-covers1-template .related-products .price--on-sale .price-item--regular,
+body.seat-covers1-template .related-products .price--on-sale s.price-item--regular {
+  color: red !important;
+  text-decoration: line-through !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 24px !important;
+}
+
+body.seat-covers1-template .related-products .card__badge {
+  align-self: flex-start;
+  grid-row-start: 1;
+  justify-self: flex-start;
+  margin: 1rem !important;
+}
+
+body.seat-covers1-template .related-products .card__badge .badge {
+  background: #e11d48 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+@media screen and (max-width: 749px) {
+  body.seat-covers1-template .related-products__heading,
+  body.seat-covers1-template .related-products__heading.h2,
+  body.seat-covers1-template .related-products__heading.h1,
+  body.seat-covers1-template .related-products__heading.h0 {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 24px !important;
+  }
+
+  body.seat-covers1-template .related-products .card__heading,
+  body.seat-covers1-template .related-products .card__heading.h5 {
+    font-size: 14px !important;
+    line-height: 20px !important;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  body.seat-covers1-template .related-products .card-wrapper:hover .media.media--hover-effect > img:first-child:not(:only-child) {
+    opacity: 0;
+  }
+
+  body.seat-covers1-template .related-products .card-wrapper:hover .media.media--hover-effect > img + img {
+    opacity: 1;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.4s ease;
+    transform: scale(1.03);
+  }
+}
+
+/* All images: border-radius 6px */
+body.seat-covers1-template img {
+  border-radius: 6px;
+}
+
+body.seat-covers1-template .product__media,
+body.seat-covers1-template .product__media-item,
+body.seat-covers1-template .product__media-wrapper .media,
+body.seat-covers1-template .card__media,
+body.seat-covers1-template .card__media .media,
+body.seat-covers1-template .media,
+body.seat-covers1-template .global-media-settings,
+body.seat-covers1-template .thumbnail,
+body.seat-covers1-template .thumbnail-list__item,
+body.seat-covers1-template .image-with-text__media,
+body.seat-covers1-template .image-with-text-overlay__media,
+body.seat-covers1-template .video-section__media,
+body.seat-covers1-template .images-with-text-scrolling__media,
+body.seat-covers1-template .top-review .review-gallery-app-review,
+body.seat-covers1-template .video-item-app-review,
+body.seat-covers1-template .image-item-app-review,
+body.seat-covers1-template .gallery-item-app-review {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Product gallery — mobile layout matching the Impact reference. */
+@media screen and (max-width: 749px) {
+  body.seat-covers1-template .product__media-wrapper {
+    width: calc(100% + 3rem);
+    max-width: none;
+    margin-left: -1.5rem;
+  }
+
+  body.seat-covers1-template .product__media-wrapper > media-gallery > slider-component:first-of-type {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  body.seat-covers1-template .product__media-list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    scroll-padding-left: 0;
+  }
+
+  body.seat-covers1-template .product__media-list .product__media-item,
+  body.seat-covers1-template .product__media-list .product__media-item:first-of-type {
+    width: 100%;
+    min-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body.seat-covers1-template .product__media,
+  body.seat-covers1-template .product__media-item,
+  body.seat-covers1-template .product__media-wrapper .media,
+  body.seat-covers1-template .product__media-wrapper .global-media-settings,
+  body.seat-covers1-template .product__media-wrapper .product__media img {
+    border-radius: 0;
+  }
+
+  body.seat-covers1-template .product__media-icon {
+    left: auto;
+    right: 1.8rem;
+    top: 1.8rem;
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+
+  body.seat-covers1-template .thumbnail-slider {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1.8rem 2.2rem 1.2rem;
+  }
+
+  body.seat-covers1-template .thumbnail-slider > .slider-button {
+    display: none;
+  }
+
+  body.seat-covers1-template .thumbnail-slider .thumbnail-list.slider {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.8rem;
+    padding: 0;
+    overflow-x: auto;
+    scroll-padding-left: 0;
+    scrollbar-width: none;
+  }
+
+  body.seat-covers1-template .thumbnail-slider .thumbnail-list.slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  body.seat-covers1-template .thumbnail-list__item.slider__slide {
+    flex: 0 0 5.6rem;
+    width: 5.6rem;
+    height: 5.6rem;
+  }
+
+  body.seat-covers1-template .thumbnail-list__item,
+  body.seat-covers1-template .thumbnail {
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  body.seat-covers1-template .thumbnail {
+    border: 0;
+    border-bottom: 0.2rem solid transparent;
+    box-shadow: none;
+  }
+
+  body.seat-covers1-template .thumbnail[aria-current] {
+    border-color: #151515;
+    box-shadow: none;
+  }
+
+  body.seat-covers1-template .thumbnail img {
+    border-radius: 0;
+    padding-bottom: 0.3rem;
+  }
+}
