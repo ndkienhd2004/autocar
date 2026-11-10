@@ -1,0 +1,34 @@
+<section class="seat-compare" id="SeatCompare-{{ section.id }}">
+ <p class="seat-compare__eyebrow">BEFORE / AFTER</p>
+ <h2>SAME SEAT. DIFFERENT CABIN.</h2>
+ <p class="seat-compare__copy">Drag the handle to compare the original seats with the leather covers fitted over them.</p>
+ <div class="seat-compare__frame" style="--reveal:50%">
+  <img src="{{ 'seat-after.png' | asset_url }}" alt="Seats fitted with black and grey leather covers" width="1254" height="1254" loading="lazy">
+  <img class="seat-compare__before" src="{{ 'seat-before.png' | asset_url }}" alt="Original seats before fitting the covers" width="1254" height="1254" loading="lazy">
+  <span class="seat-compare__line" aria-hidden="true"><span>↔</span></span>
+  <input type="range" min="0" max="100" value="50" aria-label="Compare before and after seat covers">
+ </div>
+</section>
+<style>
+#SeatCompare-{{ section.id }} { padding:30px 20px; background:#191919; color:#fff; text-align:center; }
+.seat-compare__eyebrow { margin:0 0 8px; color:#ef6d23; font-size:12px; font-weight:800; letter-spacing:2px; }
+.seat-compare h2 { margin:0 0 10px; color:#fff; font-family:'Autocar Condensed',Roboto,sans-serif; font-size:clamp(25px,3vw,38px); font-weight:900; }
+.seat-compare__copy { max-width:600px; margin:0 auto 22px; color:#bbb; font-size:15px; line-height:1.5; }
+.seat-compare__frame { position:relative; width:min(100%,760px); margin:auto; aspect-ratio:1; overflow:hidden; border-radius:14px; border:1px solid #444; }
+.seat-compare__frame > img { position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:cover; }
+.seat-compare__before { clip-path:inset(0 calc(100% - var(--reveal)) 0 0); }
+.seat-compare__label { position:absolute; top:14px; padding:7px 10px; border-radius:4px; font-size:11px; font-weight:800; letter-spacing:1px; }
+.seat-compare__label--before { left:14px; background:#111; }
+.seat-compare__label--after { right:14px; background:#ef6d23; }
+.seat-compare__line { position:absolute; top:0; bottom:0; left:var(--reveal); width:2px; background:#fff; transform:translateX(-50%); pointer-events:none; }
+.seat-compare__line > span { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:grid; place-items:center; width:46px; height:46px; background:#fff; color:#111; border-radius:50%; font-size:22px; box-shadow:0 2px 8px #0004; }
+.seat-compare__frame input { position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:ew-resize; touch-action:pan-y; }
+.seat-compare__frame:focus-within { outline:3px solid #ef6d23; outline-offset:3px; }
+@media(max-width:749px){ #SeatCompare-{{ section.id }} { padding:24px 16px; } }
+</style>
+<script>
+(()=>{const root=document.getElementById('SeatCompare-{{ section.id }}');const input=root.querySelector('input');input.addEventListener('input',()=>{root.querySelector('.seat-compare__frame').style.setProperty('--reveal',input.value+'%');});})();
+</script>
+{% schema %}
+{"name":"Seat before and after","settings":[],"presets":[{"name":"Seat before and after"}]}
+{% endschema %}

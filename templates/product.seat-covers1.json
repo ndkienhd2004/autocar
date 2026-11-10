@@ -82,7 +82,7 @@
           "type": "collapsible_text",
           "settings": {
             "title": "Shipping Policy",
-            "content": "<ul><li>We offer <strong>free shipping</strong>, though a small additional fee may apply for remote locations.<br/></li><li>We do not ship to P.O. Box addresses.<br/></li><li>Orders are typically delivered within <strong>3-7 business days</strong>, while accessories may take <strong>7-20 business days</strong>.<br/></li><li>If you purchase accessories with your main product, they will be shipped separately. Bundle items may be shipped in multiple shipments.<br/></li><li>To cancel an order, please contact us within <strong>24 hours </strong>of placing it.<br/></li></ul><p>For more details, visit our <a href=\"https://ibuture.com/pages/shipping-policy\" title=\"https://ibuture.com/pages/shipping-policy\"><strong>Shipping Policy</strong></a> page.</p>",
+            "content": "<h1>Shipping Policy</h1><p>At <strong>Auto Car Universe</strong>, we strive to provide a smooth and reliable shipping experience for every customer.</p><p><strong>Free Shipping:</strong> We offer free standard shipping on all orders within the United States.</p><p><strong>Delivery Time:</strong> Estimated delivery takes 7–15 business days, depending on your location.</p><p><strong>Order Tracking:</strong> Once your order ships, you will receive a confirmation email with tracking information.</p><p><strong>Shipping Restrictions:</strong> We do not ship to P.O. Box addresses.</p><p><strong>Shipping Delays:</strong> Delivery times may vary due to weather, holidays, or carrier delays.</p><p><strong>Need Help?</strong> If you have any questions about your shipment, please contact us at <a href=\"mailto:support@autocaruniverse.com\"><strong>support@autocaruniverse.com</strong></a>.</p><p>Thank you for shopping with Auto Car Universe!</p>",
             "page": "",
             "icon": "none",
             "icon_width": 20
@@ -92,7 +92,7 @@
           "type": "collapsible_text",
           "settings": {
             "title": "Warranty, Refund & Return",
-            "content": "<ul><li>All our products come with a 2<strong>-year warranty</strong>, which can be extended to <strong>3 years </strong>upon registration.</li><li>Products purchased from the Our website are eligible for returns within <strong>30 days</strong> of receiving the item.</li></ul><p>For full details on our warranty, returns, and refund policies, please visit <a href=\"https://ibuture.com/pages/refund-policy\" title=\"https://ibuture.com/pages/refund-policy\"><strong>Warranty,Refund & Return Policy</strong></a> Page.</p><p>If you encounter any issues with your product, please contact our after-sales support at <a href=\"mailto:official@ibuture.com\" title=\"mailto:official@ibuture.com\"><strong>support@autocaruniverse.com</strong></a>. We're here to assist you!</p>",
+            "content": "<h3>Warranty, Returns & Refunds</h3><ul><li>All our products come with a <strong>2-year warranty</strong>, ensuring quality and peace of mind.</li><li>Products purchased from <strong>Auto Car Universe</strong> are eligible for returns within <strong>30 days</strong> of receiving the item.</li><li>If you encounter any issues with your product or need assistance with a return or refund, please contact our customer support team at <a href=\"mailto:support@autocaruniverse.com\"><strong>support@autocaruniverse.com</strong></a>.</li></ul><p>We're always here to help and ensure your satisfaction!</p>",
             "page": "",
             "icon": "none",
             "icon_width": 20
@@ -102,7 +102,7 @@
           "type": "collapsible_text",
           "settings": {
             "title": "Description",
-            "content": "<p>      • <strong>Luxurious Look and Feel:</strong> Turn any car into a luxury ride with the highest quality eco-leather. Roll around town with the best looking seats in your ride.</p><p><strong>      • Functionality: </strong>Perforated seat covers are perfect for those who want to protect their seats and enjoy heated or ventilated seats. They allow air circulation to regulate the seat's temperature and keep you comfortable year-round.</p><p><strong>       • Easy to Install: </strong>In under an hour you can easily install our seat covers using the adjustable buckle system. With just a few clicks you can change the entire appearance of your cars interior.</p><p><strong>       • Enhanced Driving Experience:</strong> Make long drives feel like a short trip with a cushiony lumbar support to keep your back nice and cozy.</p><p><strong>       • Pet and Kid Friendly: </strong>We all know how our kids and pets can be a real mess. Protect your investment by using our luxury seat covers to cover your existing seats. Spills and Stains are now easier than ever to clean with the simple wipe of a rag!</p><p><strong>       • Safety: </strong>With everyday driving being a dangerous task. We took it upon ourselves to ensure that all of our seat covers are airbag compatible. You can be assured that our seat covers will not withhold deployment of the airbag.</p>",
+            "content": "<p>&nbsp;<strong>Luxurious Look and Feel:</strong> Upgrade your car's interior with our premium PU eco-leather seat covers. Designed with an elegant finish and a custom-fit appearance, they bring a refined, luxurious look to your everyday drive.</p><p><strong>Breathable Comfort:</strong> Featuring perforated eco-leather and a multi-layer cushioning design, our seat covers promote airflow and provide comfortable support for your daily commute and longer journeys.</p><p><strong>Easy to Install:</strong> Transform your car's interior in under an hour with our adjustable straps and buckle system. No special tools are required, making installation simple and convenient.</p><p><strong>Enhanced Driving Experience:</strong> Enjoy added comfort on every journey with soft, supportive cushioning designed to make your daily commute and long drives more enjoyable.</p><p><strong>Pet and Kid Friendly:</strong> Protect your original seats from everyday spills, dirt, pet hair, and wear. Our durable eco-leather surface is easy to maintain, allowing you to wipe away most everyday messes with a damp cloth.</p><p><strong>Safety-Conscious Design:</strong> Our seat covers are designed with vehicle compatibility in mind. For vehicles equipped with seat-mounted side airbags, proper fitment and compatibility must be confirmed before installation. Always follow the installation instructions and ensure that safety features remain unobstructed.</p>",
             "page": "",
             "icon": "none",
             "icon_width": 20
@@ -149,6 +149,7 @@
       }
     },
     "custom_html_eQfD4R": {
+      "disabled": true,
       "type": "custom-html",
       "custom_css": [],
       "name": "Custom HTML",
@@ -236,22 +237,8 @@
       }
     },
     "video_yUqejJ": {
-      "type": "video",
-      "name": "Video",
-      "settings": {
-        "heading": "",
-        "heading_size": "h1",
-        "autoplay": true,
-        "enable_video_looping": true,
-        "video": "shopify://files/videos/0629.mp4",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "description": "",
-        "full_width": false,
-        "section_background": "#1a1a1a",
-        "color_scheme": "",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
+      "type": "seat-before-after",
+      "settings": {}
     },
     "table_compare_cRE9g6": {
       "type": "table-compare",
@@ -542,7 +529,7 @@
       "custom_css": [
         ".section,.banner,.video-section {background: #d4d4d4 !important;}",
         ".video,.media,.media__wrapper {background: #d4d4d4 !important;}",
-        "@media screen and (max-width: 749px) {.seat-cover-image-banner__inner {width: calc(100% - 2rem) !important;}}"
+        "@media screen and (max-width: 749px) {.seat-cover-image-banner__inner {width: calc(100% - 2rem) !important; }}"
       ],
       "name": "Image with text overlay",
       "settings": {
@@ -589,7 +576,7 @@
       "custom_css": [
         ".section,.banner,.video-section {background: #d4d4d4 !important;}",
         ".video,.media,.media__wrapper {background: #d4d4d4 !important;}",
-        "@media screen and (max-width: 749px) {.seat-cover-image-banner__inner {width: calc(100% - 2rem) !important;}}"
+        "@media screen and (max-width: 749px) {.seat-cover-image-banner__inner {width: calc(100% - 2rem) !important; }}"
       ],
       "name": "Image with text overlay",
       "settings": {
@@ -636,7 +623,7 @@
       "custom_css": [
         ".section,.banner,.video-section {background: #d4d4d4 !important;}",
         ".video,.media,.media__wrapper {background: #d4d4d4 !important;}",
-        "@media screen and (max-width: 749px) {.seat-cover-image-banner__inner {width: calc(100% - 2rem) !important;}}"
+        "@media screen and (max-width: 749px) {.seat-cover-image-banner__inner {width: calc(100% - 2rem) !important; }}"
       ],
       "name": "Image with text overlay",
       "settings": {
@@ -644,7 +631,7 @@
         "allow_transparent_header": false,
         "enable_parallax": false,
         "image_size": "auto",
-        "image": "shopify://shop_images/O1CN01XfIEET24Z5QaB9A8W__2208113757404-0-cib_430x_50c49fd4-77b3-4fd3-992d-8d2316a5e548.jpg",
+        "image": "shopify://shop_images/C_u_truc_5_l_p_ti_n_nghi_va_b_o_v.png",
         "mobile_text_position": "place-self-center text-center",
         "desktop_text_position": "sm:place-self-center sm:text-center",
         "text_color": "#ffffff",
@@ -658,7 +645,7 @@
         "richtext_X877xc": {
           "type": "text",
           "settings": {
-            "text": "<h6><strong>Top-Grade Leather<br/></strong>Durable Luxury with Premium Leather</h6>"
+            "text": "<h6><strong>Premium PU Leather<br/></strong>Built for Comfort. Designed to Last</h6>"
           }
         }
       },
@@ -692,7 +679,7 @@
         "anchor_id": "rating-summary-app-review",
         "title": "Reviews",
         "rating_value": "4.8",
-        "review_count_text": "400+ reviews",
+        "review_count_text": "2000+ reviews",
         "recommend_percent": "98",
         "recommend_text": "98% would recommend",
         "video_title": "Reviews with videos",
@@ -742,7 +729,7 @@
           "type": "item",
           "settings": {
             "title": "What is material of your car seat covers ?",
-            "content": "<p>They are made from premium <strong>Nappa </strong>leather. This material is durable, breathable and gives a luxurious look and feel.</p>"
+            "content": "<p>They are made from premium <strong>PU leather</strong>. This material is durable, easy to clean, and designed to provide lasting comfort with a luxurious look and feel.</p>"
           }
         },
         "item_dyCrat": {

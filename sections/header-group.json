@@ -17,19 +17,21 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "🎁 50% OFF for Seat Covers - Free Shipping - Get 2 Free Neck Pillows Value At 69$",
+            "text": "BLACK FRIDAY · SAVE UP TO 50%  |  Free US shipping over $85 · 30-day returns",
             "link": ""
           }
         }
       },
-      "block_order": ["announcement-bar-0"],
+      "block_order": [
+        "announcement-bar-0"
+      ],
       "settings": {
-        "enable_scrolling": true,
+        "enable_scrolling": false,
         "scrolling_speed": 40,
-        "font_size": 16,
-        "padding_y": 14,
-        "background": "#ef6d23",
-        "text_color": "#ffffff"
+        "font_size": 14,
+        "padding_y": 9,
+        "background": "#F17B40",
+        "text_color": "#171717"
       }
     },
     "header": {
@@ -50,5 +52,8 @@
       }
     }
   },
-  "order": ["announcement-bar", "header"]
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
 }

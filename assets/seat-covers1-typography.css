@@ -1283,3 +1283,115 @@ body.seat-covers1-template .gallery-item-app-review {
     padding-bottom: 0.3rem;
   }
 }
+
+/* Balanced desktop gallery and purchase columns. */
+@media(min-width:990px){
+ body.seat-covers1-template .product:not(.product--no-media) .product__media-wrapper,
+ body.seat-covers1-template .product:not(.product--no-media) .product__info-wrapper {
+   width:calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+   max-width:50%;
+   min-width:0;
+ }
+ body.seat-covers1-template .product .product__info-wrapper { padding-left:40px; }
+ body.seat-covers1-template .product--thumbnail .product__media-wrapper media-gallery { display:block; }
+ body.seat-covers1-template .product--thumbnail .product__media-wrapper .thumbnail-slider { max-height:none; overflow:visible; margin-top:10px; }
+ body.seat-covers1-template .product--thumbnail .product__media-wrapper .thumbnail-list {
+   display:flex; flex-wrap:nowrap; gap:8px; width:100%; overflow-x:auto; padding:0 0 6px;
+ }
+ body.seat-covers1-template .product--thumbnail .product__media-wrapper .thumbnail-list__item {
+   flex:0 0 calc((100% - 32px) / 5); width:calc((100% - 32px) / 5) !important; height:auto; aspect-ratio:1;
+ }
+ body.seat-covers1-template .product__media-wrapper .product__media {
+   padding-top:100% !important;
+   --ratio-percent:100% !important;
+ }
+ body.seat-covers1-template .product__media-wrapper .product__media img { width:100%;height:100%;object-fit:cover; }
+ body.seat-covers1-template .product__media-wrapper .product-media-container { --aspect-ratio:1;--preview-ratio:1; }
+}
+body.seat-covers1-template .product-wide-extras { clear:both; width:100%; margin:32px 0; }
+body.seat-covers1-template .product-wide-extras .top-review { max-width:none; width:100%; }
+body.seat-covers1-template .product-wide-extras .container-shipping { margin:0 0 26px; }
+
+/* Compact seat-package cards — local Black Friday design. */
+body.seat-covers1-template .product-form__input--seat-covers input[type=radio] + .seat-step-swatch { border:1px solid #dedede; border-radius:15px; overflow:hidden; margin-bottom:12px; }
+body.seat-covers1-template .product-form__input--seat-covers input[type=radio]:checked + .seat-step-swatch { border-color:#ef6d23; box-shadow:0 0 0 2px rgba(239,109,35,.12); }
+body.seat-covers1-template .product-form__input--seat-covers input[type=radio] + .seat-step-swatch:before { display:none; }
+body.seat-covers1-template .seat-step-swatch .tb-banner { padding:17px 18px; gap:12px; background:#fff; border-radius:14px; min-height:102px; }
+body.seat-covers1-template input[type=radio]:checked + .seat-step-swatch .tb-banner { background:#fffbf7; }
+body.seat-covers1-template .seat-step-swatch .tb-left { gap:14px; flex:1; min-width:0; }
+body.seat-covers1-template .seat-step-swatch .tb-title { font-size:15px; font-weight:700; line-height:1.35; text-transform:none; }
+body.seat-covers1-template .seat-step-swatch .tb-description { margin:6px 0 0; font-size:12px; line-height:1.4; color:#777; font-weight:400; }
+body.seat-covers1-template .seat-step-swatch .tb-best-value-badge { display:inline-block; position:static; margin-top:6px; padding:3px 6px; border-radius:3px; background:#ef6d23; font-size:10px; letter-spacing:.5px; line-height:1.2; }
+body.seat-covers1-template .seat-step-swatch .tb-right { flex:0 0 auto; }
+body.seat-covers1-template .seat-step-swatch .tb-price-row { display:flex; flex-direction:column; align-items:flex-end; gap:4px; padding:0; background:transparent; }
+body.seat-covers1-template .seat-step-swatch .tb-new-price { order:0; font-size:19px; font-weight:800; }
+body.seat-covers1-template .seat-step-swatch .tb-old-price { order:1; font-size:12px; color:#999; font-weight:400; }
+body.seat-covers1-template .seat-step-swatch .tb-save-badge { order:2; background:transparent; color:#dc824b; font-size:10px; font-weight:800; text-transform:uppercase; padding:6px 0 0; }
+body.seat-covers1-template .seat-step-swatch .tb-green-dot { flex:0 0 20px; width:20px; height:20px; border:2px solid #dedede; background:white; }
+body.seat-covers1-template input[type=radio]:checked + .seat-step-swatch .tb-green-dot { border-color:#df8b55; background:radial-gradient(circle,#ef6d23 0 4px,#fff 5px); }
+@media(max-width:480px){
+ body.seat-covers1-template .seat-step-swatch .tb-banner { padding:15px 12px;gap:8px; }
+ body.seat-covers1-template .seat-step-swatch .tb-left { gap:10px; }
+ body.seat-covers1-template .seat-step-swatch .tb-title { font-size:14px; }
+ body.seat-covers1-template .seat-step-swatch .tb-description { font-size:11px; }
+ body.seat-covers1-template .seat-step-swatch .tb-new-price { font-size:18px; }
+ body.seat-covers1-template .seat-step-swatch .tb-save-badge { font-size:9px; }
+}
+
+/* Compact separation between showcase, featured review and product details. */
+body.seat-covers1-template .product-wide-extras { margin:18px 0 12px; }
+body.seat-covers1-template .product-content-divider { height:12px; background:#f2f2f2; border-top:1px solid #dedede; border-bottom:1px solid #e8e8e8; margin:0 0 18px; }
+body.seat-covers1-template .product-wide-extras .top-review__heading { margin-bottom:14px !important; }
+body.seat-covers1-template .product-wide-extras .btn-view-all-top-comment { margin:8px 0 0; padding:0; }
+body.seat-covers1-template .product-wide-extras .btn-view-all-top-comment a { padding:0; }
+body.seat-covers1-template .product-wide-extras .top-review { margin-bottom:0; }
+body.seat-covers1-template section[id^="MainProduct-"] { padding-bottom:16px !important; }
+@media(max-width:749px){
+ body.seat-covers1-template .product-wide-extras { margin-top:14px; }
+ body.seat-covers1-template .product-story__showcase { margin-top:16px; margin-bottom:0; }
+ body.seat-covers1-template .product-story__showcase h2 { margin-bottom:12px; }
+ body.seat-covers1-template .product-content-divider { margin-bottom:14px; }
+}
+
+/* Full-width grey separators around the featured review. */
+body.seat-covers1-template .product-content-divider {
+  display:block;
+  position:relative;
+  left:50%;
+  transform:translateX(-50%);
+  width:100vw;
+  height:16px;
+  background:#dedde0;
+  border-top:1px solid #d5d4d7;
+  border-bottom:1px solid #d5d4d7;
+  margin:0 0 18px;
+}
+body.seat-covers1-template .product-content-divider--after { margin:8px 0 0; }
+body.seat-covers1-template .product-wide-extras { margin:16px 0 0; }
+body.seat-covers1-template section[id^="MainProduct-"] { padding-bottom:0 !important; }
+
+/* Compact package layout; retain the existing orange palette. */
+body.seat-covers1-template .product-form__input--seat-covers input[type=radio] + .seat-step-swatch {
+  position:relative; overflow:visible; border-radius:13px; margin-bottom:15px;
+}
+body.seat-covers1-template .seat-step-swatch .tb-banner { position:relative; min-height:88px; padding:17px 15px; border-radius:12px; }
+body.seat-covers1-template .seat-step-swatch .tb-left { gap:11px; }
+body.seat-covers1-template .seat-step-swatch .tb-title { font-size:15px; letter-spacing:.2px; }
+body.seat-covers1-template .seat-step-swatch .tb-description { margin-top:5px; font-size:12px; }
+body.seat-covers1-template .seat-step-swatch .tb-save-badge { display:none; }
+body.seat-covers1-template .seat-step-swatch .tb-price-row { gap:7px; }
+body.seat-covers1-template .seat-step-swatch .tb-new-price { font-family:'Barlow Condensed',Roboto,sans-serif; font-weight:900; font-size:26px; line-height:1; }
+body.seat-covers1-template .seat-step-swatch .tb-old-price { font-size:12px; }
+body.seat-covers1-template .seat-step-swatch .tb-best-value-badge { position:absolute; top:-10px; right:15px; margin:0; padding:4px 9px; font-size:10px; z-index:1; }
+@media(max-width:480px){
+ body.seat-covers1-template .seat-step-swatch .tb-banner { min-height:86px; padding:16px 13px; }
+ body.seat-covers1-template .seat-step-swatch .tb-title { font-size:14px; }
+ body.seat-covers1-template .seat-step-swatch .tb-description { font-size:11px; }
+ body.seat-covers1-template .seat-step-swatch .tb-new-price { font-size:25px; }
+}
+
+/* Original package prices use a red strike-through. */
+body.seat-covers1-template .seat-step-swatch .tb-old-price {
+  color:#e21c2a;
+  text-decoration-color:#e21c2a;
+}

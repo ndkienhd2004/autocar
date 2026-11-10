@@ -56,14 +56,17 @@
 <media-gallery
   id="MediaGallery-{{ section.id }}{{ id_append }}"
   role="region"
-  {% if section.settings.enable_sticky_info %}
-    class="product__column-sticky"
-  {% endif %}
+
   aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
   data-desktop-layout="{{ gallery_layout }}"
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
   <slider-component id="GalleryViewer-{{ section.id }}{{ id_append }}" class="slider-mobile-gutter">
+    <div class="gallery-offer-badges" aria-label="Black Friday offer">
+      <span class="gallery-offer-badges__sale"><i aria-hidden="true"></i> BLACK FRIDAY −50%</span>
+      <span class="gallery-offer-badges__gift"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h18v4H3zM5 12v9h14v-9M12 8v13"/><path d="M12 8H8a3 3 0 1 1 3-3l1 3Zm0 0h4a3 3 0 1 0-3-3l-1 3Z"/></svg> FREE GIFTS INCLUDED</span>
+    </div>
+
     {%- unless is_duplicate -%}
       <a class="skip-to-content-link button visually-hidden quick-add-hidden" href="#ProductInfo-{{ section.id }}">
         {{ 'accessibility.skip_to_product_info' | t }}
@@ -316,3 +319,14 @@
     </slider-component>
   {%- endif -%}
 </media-gallery>
+
+<style>
+media-gallery > slider-component[id^="GalleryViewer-"] { position:relative; }
+.gallery-offer-badges { position:absolute; top:14px; right:14px; z-index:3; display:flex; flex-direction:column; align-items:flex-end; gap:7px; pointer-events:none; }
+.gallery-offer-badges > span { display:inline-flex; align-items:center; gap:7px; padding:9px 12px; border-radius:10px; font:800 11px/1.15 Roboto,sans-serif; letter-spacing:1px; color:#fff; box-shadow:0 2px 8px #0002; }
+.gallery-offer-badges__sale { background:#0b0b0b; }
+.gallery-offer-badges__sale i { width:7px; height:7px; border-radius:50%; background:#ef6d23; }
+.gallery-offer-badges__gift { background:#ef6d23; }
+@media(max-width:749px){ .gallery-offer-badges { top:12px;right:12px;gap:6px; } .gallery-offer-badges > span { padding:8px 10px;font-size:10px;letter-spacing:.7px; } }
+</style>
+

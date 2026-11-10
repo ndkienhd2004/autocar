@@ -69,6 +69,7 @@
   <div class="product product--{{ product_media_size }} product--{{ product_media_position }} product--{{ product_gallery_layout }} product--mobile-{{ product_mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
     <div class="grid__item product__media-wrapper{% if product_media_position == 'right' %} medium-hide large-up-hide{% endif %}">
       {% render 'product-media-gallery', variant_images: variant_images %}
+      {% render 'product-showcase-video' %}
     </div>
     <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <product-info
@@ -274,10 +275,11 @@
               {% render 'dropdown_data', block: block, form: product_form_id %}
             {%- when 'gift_free' -%}
               {% render 'gift-free' %}
+              {% render 'product-benefits-showcase', product: product %}
             {%- when 'shipping' -%}
-              {% render 'shipping' %}
+              {% continue %}
             {%- when 'top_comment' -%}
-              {% render 'top-comment' %}
+              {% continue %}
             {%- when 'offer' -%}
               {% render 'offer', block: block %}
             {%- when 'image' -%}
@@ -287,6 +289,7 @@
                 </div>
               {%- endif -%}
             {%- when 'collapsible_text' -%}
+              {% continue %}
               <div class="product__accordion accordion quick-add-hidden{% if template.name == 'product' and template.suffix == 'seat-covers1' %} product__accordion--seat-covers{% endif %}" {{ block.shopify_attributes }}>
                 <details id="Details-{{ block.id }}-{{ section.id }}">
                   <summary>
@@ -577,6 +580,11 @@
     {%- endif -%}
   </div>
 
+  <div class="product-wide-extras">
+    <div class="product-content-divider" aria-hidden="true"></div>
+    {% render 'top-comment' %}
+    <div class="product-content-divider product-content-divider--after" aria-hidden="true"></div>
+  </div>
   {% render 'product-media-modal' variant_images: variant_images %}
 
   {% assign popups = section.blocks | where: 'type', 'popup' %}
@@ -2502,3 +2510,16 @@
   ]
 }
 {% endschema %}
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+ const section=document.getElementById('shopify-section-{{ section.id }}');
+ if(!section)return;
+ const video=section.querySelector('.product-story__showcase'),story=section.querySelector('.product-story');
+ const gallery=section.querySelector('.product__media-wrapper');
+ if(!video||!story||!gallery)return;
+ const media=matchMedia('(max-width:749px)');
+ const position=()=>{if(media.matches)story.after(video);else gallery.append(video);};
+ position();media.addEventListener('change',position);
+});
+</script>

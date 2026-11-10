@@ -1,0 +1,33 @@
+{%- capture discount_cards -%}
+  {%- assign seen_discounts = '|' -%}
+  {%- for item in cart.items -%}
+    {%- if item.final_line_price == 0 -%}{%- continue -%}{%- endif -%}
+    {%- for allocation in item.line_level_discount_allocations -%}
+      {%- assign discount = allocation.discount_application -%}
+      {%- assign marker = discount.title | append: '|' | prepend: '|' -%}
+      {%- unless seen_discounts contains marker -%}
+        {%- if allocation.amount > 0 -%}
+          <div class="bf-cart-discount"><span class="bf-cart-discount__tag">EXTRA</span><div><strong>{% if discount.value_type == 'percentage' %}Extra 10% OFF applied!{% else %}Discount applied!{% endif %}</strong><p>{{ discount.title | escape }} · Included in the total below.</p></div><span class="bf-cart-discount__check" aria-hidden="true">✓</span></div>
+          {%- assign seen_discounts = seen_discounts | append: marker -%}
+        {%- endif -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endfor -%}
+  {%- for discount in cart.cart_level_discount_applications -%}
+    {%- assign marker = discount.title | append: '|' | prepend: '|' -%}
+    {%- unless seen_discounts contains marker -%}
+      {%- if discount.total_allocated_amount > 0 -%}
+        <div class="bf-cart-discount"><span class="bf-cart-discount__tag">EXTRA</span><div><strong>{% if discount.value_type == 'percentage' %}Extra 10% OFF applied!{% else %}{{ discount.total_allocated_amount | money }} OFF applied!{% endif %}</strong><p>{{ discount.title | escape }} · Included in the total below.</p></div><span class="bf-cart-discount__check" aria-hidden="true">✓</span></div>
+      {%- endif -%}
+    {%- endunless -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{{ discount_cards }}
+<style>
+.bf-cart-discount { display:flex;align-items:center;gap:12px;padding:13px;border:1px solid #ead587;border-radius:12px;background:#fff8df;margin-bottom:16px;color:#25251f; }
+.bf-cart-discount__tag { padding:13px 10px;background:#171714;color:#f4d34e;font-weight:800;font-size:13px;letter-spacing:1px;border-radius:7px; }
+.bf-cart-discount > div { flex:1;min-width:0; }
+.bf-cart-discount strong { font-size:14px; }
+.bf-cart-discount p { margin:5px 0 0;font-size:11px;line-height:1.4;color:#817750; }
+.bf-cart-discount__check { width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:#259255;color:white;flex-shrink:0; }
+</style>

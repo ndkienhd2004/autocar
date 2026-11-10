@@ -1,0 +1,73 @@
+<div class="product-story" aria-label="Product benefits and showcase">
+  <div class="product-story__information">
+    <details class="product-story__accordion" open>
+      <summary>Benefits <span aria-hidden="true"></span></summary>
+      <ul class="product-story__benefits">
+        <li>Free Shipping</li>
+        <li>30-Day Returns</li>
+        <li>2-Year Warranty</li>
+        <li>Custom-Fit Seat Covers</li>
+        <li>Easy Installation</li>
+      </ul>
+    </details>
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'collapsible_text' -%}
+        <details class="product-story__accordion" {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.title | default: block.settings.page.title }}<span aria-hidden="true"></span></summary>
+          <div class="product-story__body rte">{{ block.settings.content }}{{ block.settings.page.content }}</div>
+        </details>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+</div>
+<style>
+.product-story { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:60px; margin:36px 0; width:100%; }
+.product-story__information { grid-column:2; grid-row:1; min-width:0; }
+.product-story__showcase { grid-column:1; grid-row:1; min-width:0; }
+.product-story__showcase h2 { margin:0 0 22px; font-size:26px; font-weight:800; color:#171717; }
+.product-story__showcase video { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#101010; border-radius:8px; }
+.product-story__accordion { border-top:1px solid #dedede; }
+.product-story__accordion summary { list-style:none; display:flex; align-items:center; justify-content:space-between; gap:16px; cursor:pointer; padding:24px 0; font-size:19px; font-weight:700; color:#333; }
+.product-story__accordion summary::-webkit-details-marker { display:none; }
+.product-story__accordion summary span::before { content:'+'; font-weight:400; font-size:26px; color:#686868; }
+.product-story__accordion[open] summary span::before { content:'−'; }
+.product-story__benefits { list-style:none; margin:0; padding:6px 0 26px; display:grid; gap:20px; }
+.product-story__benefits li { position:relative; padding-left:32px; font-size:17px; color:#4b4b4b; line-height:1.5; }
+.product-story__benefits li::before { content:'✓'; position:absolute; left:0; color:#43513A; font-weight:800; }
+.product-story__body { padding:0 0 22px; font-size:15px; line-height:1.6; color:#555; }
+@media(max-width:749px) {
+ .product-story { grid-template-columns:minmax(0,1fr); gap:28px; margin:24px 0; }
+ .product-story__information,.product-story__showcase { grid-column:auto; grid-row:auto; }
+ .product-story__accordion summary { padding:22px 0; font-size:18px; }
+ .product-story__showcase h2 { font-size:23px; margin-bottom:18px; }
+}
+</style>
+
+<style>
+.product-story { display:block; margin:20px 0; }
+.product-story__showcase { margin:28px 0 0; }
+@media(max-width:749px){ .product-story__showcase { margin-top:24px; } }
+</style>
+<style>
+@font-face {
+ font-family:'Autocar Condensed'; font-style:normal; font-weight:900; font-display:swap;
+ src:url('{{ 'barlow-condensed-black.ttf' | asset_url }}') format('truetype');
+}
+body.seat-covers1-template .product__title h1,
+body.seat-covers1-template .product__title .product-info__title.h4,
+body.seat-covers1-template .product__title h2 {
+ font-family:'Autocar Condensed', 'Arial Narrow',sans-serif !important;
+ font-weight:900 !important;
+ text-transform:uppercase;
+ letter-spacing:-.3px !important;
+ line-height:1.04 !important;
+ font-size:42px !important;
+ max-width:410px;
+}
+@media(max-width:749px){
+ body.seat-covers1-template .product__title h1,
+ body.seat-covers1-template .product__title .product-info__title.h4,
+ body.seat-covers1-template .product__title h2 { font-size:36px !important; max-width:330px; }
+}
+</style>

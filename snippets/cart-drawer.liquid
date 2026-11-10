@@ -71,23 +71,6 @@
         </button>
       </div>
 
-      {%- if cart != empty -%}
-        <div class="cart-drawer__shipping-bar">
-          <div class="cart-drawer__shipping-bar-text">
-            🎉 You’ve unlocked <strong>Free Shipping</strong> + a <strong>Free Gift</strong>
-          </div>
-          <div
-            class="cart-drawer__shipping-bar-progress"
-            role="progressbar"
-            aria-valuenow="100"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            <span style="width: 100%"></span>
-          </div>
-        </div>
-      {%- endif -%}
-
       <cart-drawer-items
         {% if cart == empty %}
           class=" is-empty"
@@ -246,9 +229,8 @@
               </div>
 
               <div class="cart-drawer__free-gifts">
-                <div class="cart-drawer__free-gifts-heading">🎁 Your Free Gift Is Ready!</div>
+                <div class="cart-drawer__free-gifts-heading">🎁 Your Black Friday free gifts</div>
                 {% render 'free-gifts-grid' %}
-                {% render 'count-down' %}
               </div>
             {%- endif -%}
             <p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
@@ -282,33 +264,17 @@
         {%- endif -%}
 
         <div class="cart-drawer__footer">
-          {%- capture free_gifts_savings_cents -%}{%- render 'free-gifts-total-savings' -%}{%- endcapture -%}
-          {%- assign total_discount = free_gifts_savings_cents | strip | plus: 0 -%}
-          <div class="cart-drawer__promo">
-            <div class="free-return">Free Shipping & 30 Days Free Return</div>
-            <p class="cart-drawer__total-savings">
-              🎁 Total Savings:
-              <span class="cart-drawer__total-savings-value">{{ total_discount | money }}</span>
-            </p>
-          </div>
-
-          <div class="totals" role="status">
-            <h2 class="totals__subtotal">Total</h2>
-            <p class="totals__subtotal-value">{{ cart.total_price | money_with_currency }}</p>
-          </div>
-
-          <div>
-            {%- if cart.cart_level_discount_applications.size > 0 -%}
-              <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
-                {%- for discount in cart.cart_level_discount_applications -%}
-                  <li class="discounts__discount discounts__discount--end">
-                    {%- render 'icon-discount' -%}
-                    {{ discount.title }}
-                    (-{{ discount.total_allocated_amount | money }})
-                  </li>
-                {%- endfor -%}
-              </ul>
+          {% render 'cart-discount-banner' %}
+          <div class="bf-cart-policy"><span>🚚 FREE US SHIPPING</span><span>↩ 30-DAY RETURNS</span></div>
+          <div class="bf-cart-summary" role="status">
+            <div class="bf-cart-summary__row"><span>Subtotal</span><strong>{{ cart.original_total_price | money }}</strong></div>
+            {%- if cart.total_discount > 0 -%}
+              <div class="bf-cart-summary__row bf-cart-summary__discount"><span><strong>EXTRA</strong> · 10% off at checkout</span><strong>−{{ cart.total_discount | money }}</strong></div>
+              {%- for discount in cart.cart_level_discount_applications -%}
+                <p class="bf-cart-summary__code">{{ discount.title | escape }}</p>
+              {%- endfor -%}
             {%- endif -%}
+            <div class="bf-cart-summary__total"><div><strong>Estimated checkout total</strong><small>Before any applicable taxes</small></div><strong class="bf-cart-summary__amount">{{ cart.total_price | money }}</strong></div>
           </div>
         </div>
 
