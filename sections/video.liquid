@@ -64,6 +64,12 @@
     height: auto;
   }
 
+  #shopify-section-{{ section.id }} .video-section__media--inline img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   {%- unless section.settings.full_width -%}
     /* Impact-style inset video with rounded corners */
     #shopify-section-{{ section.id }} .video-section.page-width {
@@ -100,7 +106,17 @@
       </div>
     {%- endunless -%}
 
-    {%- if autoplay and section.settings.video != blank -%}
+    {%- if section.settings.static_image_asset != blank -%}
+      <div class="video-section__media video-section__media--inline{% if section.settings.full_width %} global-media-settings--full-width{% endif %}">
+        <img
+          src="{{ section.settings.static_image_asset | asset_url }}"
+          alt="{{ section.settings.static_image_alt | default: section.settings.description | escape }}"
+          loading="lazy"
+          width="1254"
+          height="1254"
+        >
+      </div>
+    {%- elsif autoplay and section.settings.video != blank -%}
       {%- comment -%} Impact-style: autoplay + loop, muted, no controls / play icon {%- endcomment -%}
       <div
         class="video-section__media video-section__media--inline media-fit-cover{% if section.settings.full_width %} global-media-settings--full-width{% endif %}"
@@ -308,6 +324,17 @@
       "id": "description",
       "label": "t:sections.video.settings.description.label",
       "info": "t:sections.video.settings.description.info"
+    },
+    {
+      "type": "text",
+      "id": "static_image_asset",
+      "label": "Static theme image filename",
+      "info": "Optional. When set, this image replaces the video in this section."
+    },
+    {
+      "type": "text",
+      "id": "static_image_alt",
+      "label": "Static image alt text"
     },
     {
       "type": "header",

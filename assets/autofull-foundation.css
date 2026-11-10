@@ -183,3 +183,23 @@ body {
     padding-bottom: 2.4rem;
   }
 }
+
+/* Veteran storefront palette. */
+body, .color-background-1, .color-background-2 {
+  --color-background: 248, 247, 242;
+  --gradient-background: #F8F7F2;
+}
+body { background-color: #F8F7F2; }
+body .product-form__submit,
+body.seat-covers1-template .product-form__submit,
+body .sticky-atc .sticky-atc__button,
+body.seat-covers1-template .product-form__submit:hover:not([disabled]),
+body .sticky-atc .sticky-atc__button:hover {
+  --color-button: 67, 81, 58;
+  --color-button-text: 255, 255, 255;
+  background: #43513A !important;
+  color: #fff !important;
+}
+body.seat-covers1-template .tb-save-badge {
+  background: #B49754 !important;
+}

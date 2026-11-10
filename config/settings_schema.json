@@ -1455,5 +1455,17 @@
         "info": "t:settings_schema.cart.settings.cart_drawer.collection.info"
       }
     ]
+  },
+  {
+    "name": "Review & Video API",
+    "settings": [
+      {
+        "type": "text",
+        "id": "product_reviews_api_url",
+        "label": "Product reviews API URL",
+        "default": "https://api.autocaruniverse.cloud/api/products/camo_seat_covers/reviews",
+        "info": "Full HTTPS endpoint for this store. Used by both reviews and videos. Public URL only; do not enter API keys."
+      }
+    ]
   }
 ]

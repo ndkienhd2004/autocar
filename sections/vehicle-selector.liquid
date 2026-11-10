@@ -38,33 +38,15 @@
       {% endif %}
 
       <form class="vehicle-selector__form" data-vehicle-selector>
-        <label class="vehicle-selector__field">
-          <span class="visually-hidden">Year</span>
-          <select name="year" data-vehicle-year required>
-            <option value="">Year</option>
-          </select>
-        </label>
-
-        <label class="vehicle-selector__field">
-          <span class="visually-hidden">Make</span>
-          <select name="make" data-vehicle-make required disabled>
-            <option value="">Make</option>
-          </select>
-        </label>
-
-        <label class="vehicle-selector__field">
-          <span class="visually-hidden">Model</span>
-          <select name="model" data-vehicle-model required disabled>
-            <option value="">Model</option>
-          </select>
-        </label>
-
+<label class="vehicle-selector__field"><span class="visually-hidden">Year</span><select data-vehicle-year required><option value="">Year</option></select></label>
+<label class="vehicle-selector__field"><span class="visually-hidden">Make</span><select data-vehicle-make required><option value="">Make</option></select></label>
+<label class="vehicle-selector__field"><span class="visually-hidden">Model</span><select data-vehicle-model required><option value="">Model</option></select></label>
         <button class="vehicle-selector__submit button" type="submit">
           <span class="vehicle-selector__button-label--desktop">{{ section.settings.button_label | escape }}</span>
           <span class="vehicle-selector__button-label--mobile">Go</span>
         </button>
         <p class="vehicle-selector__error" data-vehicle-error role="alert" hidden>
-          Please select your year, make, and model.
+          Please enter your vehicle information.
         </p>
       </form>
     </div>
@@ -145,7 +127,7 @@
   }
 
   #VehicleSelector-{{ section.id }} .vehicle-selector__stars {
-    color: #ff7a1a;
+    color: #43513A;
     letter-spacing: 2px;
   }
 
@@ -194,7 +176,7 @@
     border: 1px solid rgba(255, 255, 255, .8);
     border-bottom: 0;
     border-radius: 12px 12px 0 0;
-    background: #ef6d23;
+    background: #43513A;
     font-size: clamp(1.8rem, 2.4vw, 2.8rem);
     font-weight: 900;
     line-height: 1;
@@ -259,7 +241,7 @@
     padding: 0 32px;
     border: 0;
     border-radius: 8px !important;
-    background: #ef6d23;
+    background: #43513A;
     color: #fff;
     font-size: 1.8rem;
     font-weight: 900;
@@ -443,7 +425,7 @@
       left: -1px;
       padding: 13px 20px 7px;
       border-color: rgba(255, 255, 255, .9);
-      background: #ef6d23;
+      background: #43513A;
       font-size: clamp(1.8rem, 4.8vw, 2.2rem);
     }
 
@@ -563,98 +545,38 @@
   }
 </style>
 
-<script>
-  (() => {
-    const root = document.querySelector('#VehicleSelector-{{ section.id }}');
-    if (!root || !window.dataVehicle) return;
+<script src="{{ 'vehicle-dropdowns.js' | asset_url }}" defer></script>
 
-    const form = root.querySelector('[data-vehicle-selector]');
-    const yearSelect = root.querySelector('[data-vehicle-year]');
-    const makeSelect = root.querySelector('[data-vehicle-make]');
-    const modelSelect = root.querySelector('[data-vehicle-model]');
-    const error = root.querySelector('[data-vehicle-error]');
-    const productUrl = {{ '/products/luxury-seat-covers' | json }};
-    const data = window.dataVehicle;
-
-    const reset = (select, label) => {
-      select.innerHTML = `<option value="">${label}</option>`;
-      select.disabled = true;
-    };
-
-    const addOption = (parent, value) => {
-      const option = document.createElement('option');
-      option.value = value;
-      option.textContent = value;
-      parent.appendChild(option);
-    };
-
-    const addGroupedOptions = (select, topItems, otherItems, getValue) => {
-      if (topItems.length) {
-        const topGroup = document.createElement('optgroup');
-        topGroup.label = 'Top sellers';
-        topItems.forEach((item) => addOption(topGroup, getValue(item)));
-        select.appendChild(topGroup);
-      }
-
-      if (otherItems.length) {
-        const otherGroup = document.createElement('optgroup');
-        otherGroup.label = 'All others';
-        otherItems.forEach((item) => addOption(otherGroup, getValue(item)));
-        select.appendChild(otherGroup);
-      }
-    };
-
-    const getModelName = (model) => (typeof model === 'string' ? model : model.name);
-
-    Object.keys(data)
-      .sort((a, b) => Number(b) - Number(a))
-      .forEach((year) => yearSelect.add(new Option(year, year)));
-
-    yearSelect.addEventListener('change', () => {
-      reset(makeSelect, 'Make');
-      reset(modelSelect, 'Model');
-      const makes = data[yearSelect.value] || [];
-      addGroupedOptions(makeSelect, makes.slice(0, 6), makes.slice(6), (item) => item.make);
-      makeSelect.disabled = makes.length === 0;
-      error.hidden = true;
-    });
-
-    makeSelect.addEventListener('change', () => {
-      reset(modelSelect, 'Model');
-      const makeData = (data[yearSelect.value] || []).find(
-        (item) => item.make === makeSelect.value
-      );
-      const models = makeData?.models || [];
-      const topSellerMake = (data[yearSelect.value] || []).slice(0, 6).some(
-        (item) => item.make === makeSelect.value
-      );
-      const topCount = ['Ford', 'Chevrolet', 'GMC', 'Honda'].includes(makeSelect.value) ? 4 : 3;
-
-      if (topSellerMake && makeSelect.value !== 'Honda') {
-        addGroupedOptions(modelSelect, models.slice(0, topCount), models.slice(topCount), getModelName);
-      } else {
-        models.forEach((model) => addOption(modelSelect, getModelName(model)));
-      }
-      modelSelect.disabled = modelSelect.options.length === 1;
-      error.hidden = true;
-    });
-
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!yearSelect.value || !makeSelect.value || !modelSelect.value) {
-        error.hidden = false;
-        return;
-      }
-
-      const url = new URL(productUrl, window.location.origin);
-      url.searchParams.set('vehicle_year', yearSelect.value);
-      url.searchParams.set('vehicle_make', makeSelect.value);
-      url.searchParams.set('vehicle_model', modelSelect.value);
-      window.location.assign(url.toString());
-    });
-  })();
-</script>
-
+<style>
+#VehicleSelector-{{ section.id }} .vehicle-selector__field::after { display:none; }
+#VehicleSelector-{{ section.id }} select::placeholder { color:#666; opacity:0.65; }
+#VehicleSelector-{{ section.id }} .vehicle-selector__form { grid-template-columns:repeat(3,minmax(0,1fr)) auto; }
+#VehicleSelector-{{ section.id }} .vehicle-selector__submit { grid-column:auto; }
+@media(max-width:480px) { #VehicleSelector-{{ section.id }} .vehicle-selector__form { grid-template-columns:1fr; } }
+</style>
+<style>
+body:has(#VehicleSelector-{{ section.id }}) .header__inline-menu a,
+body:has(#VehicleSelector-{{ section.id }}) .header__inline-menu summary,
+body:has(#VehicleSelector-{{ section.id }}) .header__inline-menu span {
+  color: #43513A !important;
+}
+body:has(#VehicleSelector-{{ section.id }}) .cart-count-bubble {
+  background: #43513A !important;
+  color: #fff !important;
+}
+</style>
+<style>
+#VehicleSelector-{{ section.id }} .vehicle-selector__submit {
+  --color-button: 67, 81, 58;
+  --border-opacity: 1;
+  border-color: #43513A !important;
+}
+#VehicleSelector-{{ section.id }} .vehicle-selector__submit::before,
+#VehicleSelector-{{ section.id }} .vehicle-selector__submit::after {
+  border-color: #43513A !important;
+  box-shadow: none !important;
+}
+</style>
 {% schema %}
 {
   "name": "Vehicle selector",

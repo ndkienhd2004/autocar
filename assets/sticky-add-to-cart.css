@@ -28,7 +28,7 @@
   padding: 1.2rem 2.4rem;
   border: none;
   border-radius: 0.6rem;
-  background-color: #ee6819;
+  background-color: #43513A;
   color: #ffffff;
   font-size: 1.5rem;
   font-weight: 700;
@@ -45,7 +45,7 @@
 }
 
 .sticky-atc .sticky-atc__button:hover {
-  background-color: #d45a12;
+  background-color: #43513A;
 }
 
 .sticky-atc .sticky-atc__button[disabled] {

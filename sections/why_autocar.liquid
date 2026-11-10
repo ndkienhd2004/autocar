@@ -14,7 +14,7 @@
         {% if section.settings.seat_image != blank %}
           {{ section.settings.seat_image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw', widths: '500, 700, 900, 1100, 1400', alt: section.settings.seat_card_title }}
         {% else %}
-          <img src="{{ 'custom-fit-seat-interior.png' | asset_url }}" alt="{{ section.settings.seat_card_title | escape }}" width="1672" height="941" loading="lazy">
+          <img src="{{ 'camo-seat-covers-home.png' | asset_url }}" alt="{{ section.settings.seat_card_title | escape }}" width="1672" height="941" loading="lazy">
         {% endif %}
         <div class="why-autocar__image-overlay">
           <strong>{{ section.settings.seat_card_title | escape }}</strong>

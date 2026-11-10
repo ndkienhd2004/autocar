@@ -2,13 +2,21 @@
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
     <meta charset="utf-8">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16485064647"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-16485064647');
+    </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
 
     {%- if settings.favicon != blank -%}
-      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+      <link rel="icon" type="image/png" href="{{ 'https://cdn.shopify.com/s/files/1/0792/8273/3224/files/veteran-seat-covers-logo.png'  }}">
     {%- endif -%}
 
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
@@ -278,6 +286,10 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+  <script>
+      window.productReviewsApiUrl = {{ settings.product_reviews_api_url | json }};
+    </script>
+    {{ 'product-review-config.js' | asset_url | script_tag }}
   </head>
 
   <body class="gradient{% if template.name == 'product' and template.suffix == 'seat-covers1' %} seat-covers1-template{% endif %}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">

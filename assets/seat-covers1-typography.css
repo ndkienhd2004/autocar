@@ -373,7 +373,7 @@ body.seat-covers1-template .product-info__price .badge {
   text-transform: none;
 }
 body.seat-covers1-template .product-info__price .badge--on-sale {
-  background: rgb(var(--impact-on-sale-badge-bg));
+  background: #B49754 !important;
   color: #fff;
 }
 
@@ -616,7 +616,7 @@ body.seat-covers1-template .product-form__input--seat-covers input[type='radio']
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  box-shadow: 0 0 0 3px #ef6d23;
+  box-shadow: 0 0 0 3px #43513A;
   opacity: 0;
   transform: scale(0.95);
   transition: opacity .2s ease-in-out, transform .2s ease-in-out;
@@ -659,7 +659,7 @@ body.seat-covers1-template .tb-best-value-badge {
   position: absolute;
   top: -1px;
   right: -1px;
-  background: #ef6d23;
+  background: #B49754;
   color: #fff;
   font-size: 10px;
   font-weight: 600;
@@ -687,8 +687,8 @@ body.seat-covers1-template .tb-green-dot {
   flex-shrink: 0;
 }
 body.seat-covers1-template input[type='radio']:checked + .block-swatch .tb-green-dot {
-  background: #ef6d23;
-  border-color: #ef6d23;
+  background: #43513A;
+  border-color: #43513A;
 }
 body.seat-covers1-template .tb-tag {
   display: inline-flex;
@@ -734,7 +734,7 @@ body.seat-covers1-template .tb-new-price {
   line-height: 1;
 }
 body.seat-covers1-template .tb-save-badge {
-  background: #ef6d23;
+  background: #B49754 !important;
   color: #fff;
   font-size: 10px;
   font-weight: 600;
@@ -953,7 +953,7 @@ body.seat-covers1-template .product-form__submit {
   padding: 14px 24px;
   border: none;
   border-radius: 10px;
-  background: #ee6819 !important;
+  background: #43513A !important;
   color: #fff !important;
   box-shadow: none;
   font-family: Roboto, sans-serif !important;
@@ -965,7 +965,7 @@ body.seat-covers1-template .product-form__submit {
 }
 
 body.seat-covers1-template .product-form__submit:hover:not([disabled]) {
-  background: #d85c14 !important;
+  background: #43513A !important;
   color: #fff !important;
 }
 

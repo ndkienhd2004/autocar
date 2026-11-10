@@ -10,7 +10,7 @@
       <div class="menu-drawer__inner-container">
         <div class="acu-drawer__content">
           <nav class="acu-drawer__categories" aria-label="Shop categories">
-            <a class="acu-drawer__category" href="/products/luxury-seat-covers">
+            <a class="acu-drawer__category" href="/products/camo-seat-covers">
               <img src="{{ 'custom-fit-seat-interior.png' | asset_url }}" alt="" width="700" height="700" loading="eager"><span>Seat Covers</span>
             </a>
             <a class="acu-drawer__category" href="/products/luxury-steering-wheel-covers">
@@ -88,7 +88,7 @@
       form.addEventListener('submit', (event) => {
         event.preventDefault();
         if (!year.value || !make.value || !model.value) { error.hidden = false; return; }
-        const destination = new URL('/products/luxury-seat-covers', window.location.origin);
+        const destination = new URL('/products/camo-seat-covers', window.location.origin);
         destination.searchParams.set('vehicle_year', year.value);
         destination.searchParams.set('vehicle_make', make.value);
         destination.searchParams.set('vehicle_model', model.value);

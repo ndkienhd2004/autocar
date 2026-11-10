@@ -72,7 +72,7 @@
     justify-content: center;
     padding: 0 34px;
     border-radius: 8px;
-    background: #ef6d23;
+    background: #43513A;
     color: #fff;
     font-size: clamp(1.6rem, 2vw, 2.2rem);
     font-weight: 800;
@@ -82,7 +82,7 @@
   }
 
   .footer__fit-cta-button:hover {
-    background: #d95d16;
+    background: #43513A;
     color: #fff;
     transform: translateY(-2px);
   }
@@ -124,9 +124,9 @@
       <p class="footer__fit-cta-copy">
         At Coverland, we understand that you want the best for your vehicle. Our custom covers offer premium quality.
       </p>
-      <a class="footer__fit-cta-button" href="/products/luxury-seat-covers">
+      <button class="footer__fit-cta-button" type="button" onclick="window.scrollTo({top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'})">
         Find your Custom-Fit Today
-      </a>
+      </button>
     </div>
   </section>
   {%- liquid

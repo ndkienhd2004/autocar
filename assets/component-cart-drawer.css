@@ -500,7 +500,7 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
 .cart-drawer__shipping-bar-progress span {
   display: block;
   height: 100%;
-  background: #ef6d23;
+  background: #43513A;
   border-radius: 999px;
 }
 
@@ -632,7 +632,7 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
 
 .free-return {
   font-size: 1.3rem;
-  background-color: #ef6d23;
+  background-color: #43513A;
   color: #fff;
   border-radius: 5px;
   padding: 0.4rem 0.6rem;

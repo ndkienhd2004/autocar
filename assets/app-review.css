@@ -1091,3 +1091,12 @@
     object-fit: cover;
     display: block;
 }
+/* Keep review photo thumbnails square on every screen size. */
+.review-gallery-app-review img.review-img-app-review {
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    object-fit: cover;
+    display: block;
+    min-width: 0;
+    align-self: start;
+}

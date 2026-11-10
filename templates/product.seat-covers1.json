@@ -241,11 +241,13 @@
       "settings": {
         "heading": "",
         "heading_size": "h1",
-        "autoplay": true,
+        "autoplay": false,
         "enable_video_looping": true,
-        "video": "shopify://files/videos/0629.mp4",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video": "",
+        "video_url": "",
         "description": "",
+        "static_image_asset": "camo-veteran-before-after.png",
+        "static_image_alt": "Camo seat cover before and after installation",
         "full_width": false,
         "section_background": "#1a1a1a",
         "color_scheme": "",
@@ -373,7 +375,7 @@
         "heading_size": "h1",
         "autoplay": true,
         "enable_video_looping": true,
-        "video": "shopify://files/videos/0929.mp4",
+        "video": "shopify://files/videos/effortlessly-clean-kids-pets.mp4",
         "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
         "description": "",
         "full_width": false,
@@ -499,184 +501,6 @@
         "full_width": true,
         "padding_top": 36,
         "padding_bottom": 32
-      }
-    },
-    "rich_text_hkWhNU": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_KzdXqC": {
-          "type": "heading",
-          "settings": {
-            "heading": "Comfort In Every Mile",
-            "heading_size": "h2"
-          }
-        },
-        "richtext_eCEdRw": {
-          "type": "text",
-          "settings": {
-            "text": "<h5><strong>Enhanced Comfort For Long Drives</strong></h5>"
-          }
-        }
-      },
-      "block_order": [
-        "heading_KzdXqC",
-        "richtext_eCEdRw"
-      ],
-      "custom_css": [
-        ".rich-text__heading,.rich-text h1,.rich-text h2,.rich-text .h1,.rich-text .h2 {font-style: italic !important;}",
-        ".h2 {margin-top: 20px !important; font-weight: 600;}",
-        ".isolate,.rich-text,.rich-text.gradient,.content-container {background: #d4d4d4 !important;}"
-      ],
-      "name": "Rich text",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "background-1",
-        "full_width": true,
-        "padding_top": 20,
-        "padding_bottom": 20
-      }
-    },
-    "image_with_text_overlay_PHygnK": {
-      "type": "image-with-text-overlay",
-      "custom_css": [
-        ".section,.banner,.video-section {background: #d4d4d4 !important;}",
-        ".video,.media,.media__wrapper {background: #d4d4d4 !important;}",
-        "@media screen and (max-width: 749px) {.seat-cover-image-banner__inner {width: calc(100% - 2rem) !important;}}"
-      ],
-      "name": "Image with text overlay",
-      "settings": {
-        "full_width": false,
-        "allow_transparent_header": false,
-        "enable_parallax": false,
-        "image_size": "auto",
-        "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten_28_430x_3879bcb5-0b82-4042-8732-30121ba72c20.webp",
-        "mobile_text_position": "place-self-center text-center",
-        "desktop_text_position": "sm:place-self-center sm:text-center",
-        "text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 0
-      }
-    },
-    "rich_text_6MgRx9": {
-      "type": "rich-text",
-      "blocks": {
-        "richtext_CAPqxX": {
-          "type": "text",
-          "settings": {
-            "text": "<h6><strong>Built-in lumbar support<br/></strong>Mile After Mile of back support</h6>"
-          }
-        }
-      },
-      "block_order": [
-        "richtext_CAPqxX"
-      ],
-      "custom_css": [
-        ".isolate,.rich-text,.rich-text.gradient,.content-container {background: #d4d4d4 !important;}"
-      ],
-      "name": "Rich text",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "background-1",
-        "full_width": true,
-        "padding_top": 20,
-        "padding_bottom": 20
-      }
-    },
-    "image_with_text_overlay_jjdX46": {
-      "type": "image-with-text-overlay",
-      "custom_css": [
-        ".section,.banner,.video-section {background: #d4d4d4 !important;}",
-        ".video,.media,.media__wrapper {background: #d4d4d4 !important;}",
-        "@media screen and (max-width: 749px) {.seat-cover-image-banner__inner {width: calc(100% - 2rem) !important;}}"
-      ],
-      "name": "Image with text overlay",
-      "settings": {
-        "full_width": false,
-        "allow_transparent_header": false,
-        "enable_parallax": false,
-        "image_size": "auto",
-        "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten_30_430x_460a5f87-d204-4330-8994-0a06bd10418a.webp",
-        "mobile_text_position": "place-self-center text-center",
-        "desktop_text_position": "sm:place-self-center sm:text-center",
-        "text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 9
-      }
-    },
-    "rich_text_Fnb9xR": {
-      "type": "rich-text",
-      "blocks": {
-        "richtext_KbKeMJ": {
-          "type": "text",
-          "settings": {
-            "text": "<h6><strong>Breathable Cushion<br/></strong>Cool Comfort in Any Climate</h6>"
-          }
-        }
-      },
-      "block_order": [
-        "richtext_KbKeMJ"
-      ],
-      "custom_css": [
-        ".isolate,.rich-text,.rich-text.gradient,.content-container {background: #d4d4d4 !important;}"
-      ],
-      "name": "Rich text",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "background-1",
-        "full_width": true,
-        "padding_top": 20,
-        "padding_bottom": 20
-      }
-    },
-    "image_with_text_overlay_GDATif": {
-      "type": "image-with-text-overlay",
-      "custom_css": [
-        ".section,.banner,.video-section {background: #d4d4d4 !important;}",
-        ".video,.media,.media__wrapper {background: #d4d4d4 !important;}",
-        "@media screen and (max-width: 749px) {.seat-cover-image-banner__inner {width: calc(100% - 2rem) !important;}}"
-      ],
-      "name": "Image with text overlay",
-      "settings": {
-        "full_width": false,
-        "allow_transparent_header": false,
-        "enable_parallax": false,
-        "image_size": "auto",
-        "image": "shopify://shop_images/O1CN01XfIEET24Z5QaB9A8W__2208113757404-0-cib_430x_50c49fd4-77b3-4fd3-992d-8d2316a5e548.jpg",
-        "mobile_text_position": "place-self-center text-center",
-        "desktop_text_position": "sm:place-self-center sm:text-center",
-        "text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 0
-      }
-    },
-    "rich_text_UeGUCi": {
-      "type": "rich-text",
-      "blocks": {
-        "richtext_X877xc": {
-          "type": "text",
-          "settings": {
-            "text": "<h6><strong>Top-Grade Leather<br/></strong>Durable Luxury with Premium Leather</h6>"
-          }
-        }
-      },
-      "block_order": [
-        "richtext_X877xc"
-      ],
-      "custom_css": [
-        ".rich-text {padding: 0px 0 32px;}",
-        ".isolate,.rich-text,.rich-text.gradient,.content-container {background: #d4d4d4 !important;}"
-      ],
-      "name": "Rich text",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "background-1",
-        "full_width": true,
-        "padding_top": 20,
-        "padding_bottom": 20
       }
     },
     "1750522499df22d5f3": {
@@ -871,6 +695,54 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "camo_use_cases": {
+      "type": "camo-use-cases",
+      "blocks": {
+        "job_site": {
+          "type": "story",
+          "settings": {
+            "image_asset": "camo-story-jobsite.png",
+            "image_alt": "Camo seat covers fitted in a truck interior",
+            "heading": "Built for the Job Site",
+            "description": "Dirt, grease and everyday work wear stay on the cover, helping protect your factory seats.",
+            "benefit_1": "Durable camo upholstery for daily use",
+            "benefit_2": "Helps shield seats from scuffs and grime"
+          }
+        },
+        "pets": {
+          "type": "story",
+          "settings": {
+            "image_asset": "camo-story-pets.png",
+            "image_alt": "Desert camo seat covers installed in a vehicle",
+            "heading": "Tails Up, Windows Down",
+            "description": "Bring your four-legged copilot along with a protective layer between paws, fur and the original upholstery.",
+            "benefit_1": "Cushioned support for longer rides",
+            "benefit_2": "Makes cleanup after adventures easier"
+          }
+        },
+        "family": {
+          "type": "story",
+          "settings": {
+            "image_asset": "camo-story-family.png",
+            "image_alt": "Liberty camo seat covers inside a vehicle",
+            "heading": "Let Them Make a Mess",
+            "description": "Snacks, spills and sticky hands are part of the ride. Keep daily messes on the cover and cleanup simple.",
+            "benefit_1": "Wipe away everyday spills and crumbs",
+            "benefit_2": "Helps protect original seats from family messes"
+          }
+        }
+      },
+      "block_order": [
+        "job_site",
+        "pets",
+        "family"
+      ],
+      "settings": {
+        "background": "#f5f4f2",
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
     }
   },
   "order": [
@@ -887,13 +759,7 @@
     "rich_text_KQEt6j",
     "video_ppPnUm",
     "rich_text_hJaxGp",
-    "rich_text_hkWhNU",
-    "image_with_text_overlay_PHygnK",
-    "rich_text_6MgRx9",
-    "image_with_text_overlay_jjdX46",
-    "rich_text_Fnb9xR",
-    "image_with_text_overlay_GDATif",
-    "rich_text_UeGUCi",
+    "camo_use_cases",
     "1750522499df22d5f3",
     "review_p8qDjK",
     "faq_cc7KyM",

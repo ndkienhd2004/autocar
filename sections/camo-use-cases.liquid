@@ -1,0 +1,405 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases {
+    max-width: 1680px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px clamp(16px, 4vw, 52px) {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    border-radius: 24px;
+    overscroll-behavior-x: contain;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__card {
+    flex: 0 0 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: center;
+    gap: clamp(28px, 6vw, 96px);
+    padding: clamp(16px, 2.5vw, 40px);
+    margin: 0;
+    border: 1px solid rgba(35, 35, 35, 0.12);
+    border-radius: 24px;
+    background: #fbfaf8;
+    scroll-snap-align: start;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__media {
+    overflow: hidden;
+    aspect-ratio: 1.16 / 1;
+    border-radius: 16px;
+    background: #e8e7e4;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__content {
+    max-width: 590px;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__heading {
+    margin: 0 0 20px;
+    color: #111;
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__description {
+    margin: 0 0 24px;
+    color: #555;
+    font-size: clamp(1.6rem, 1.7vw, 2rem);
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__benefits {
+    display: grid;
+    gap: 14px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__benefits li {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    align-items: start;
+    gap: 14px;
+    color: #171717;
+    font-size: clamp(1.5rem, 1.6vw, 1.8rem);
+    line-height: 1.35;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__check {
+    display: inline-grid;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    place-items: center;
+    border: 2px solid #ed4b43;
+    border-radius: 50%;
+    color: #ed4b43;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__controls {
+    display: flex;
+    justify-content: center;
+    gap: clamp(20px, 3vw, 40px);
+    margin-top: clamp(24px, 3vw, 44px);
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__control {
+    position: relative;
+    display: block;
+    width: clamp(96px, 12vw, 184px);
+    height: 16px;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: #c9c9c9;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__progress {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: #ed1b36;
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases__control[aria-current="true"] .camo-use-cases__progress {
+    animation: camo-story-progress var(--camo-story-duration, 6500ms) linear forwards;
+  }
+
+  #shopify-section-{{ section.id }} .camo-use-cases[data-paused="true"] .camo-use-cases__progress {
+    animation-play-state: paused;
+  }
+
+  @keyframes camo-story-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .camo-use-cases__track {
+      scroll-behavior: auto;
+    }
+    #shopify-section-{{ section.id }} .camo-use-cases__control[aria-current="true"] .camo-use-cases__progress {
+      animation: none;
+      transform: scaleX(1);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .camo-use-cases {
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .camo-use-cases__card {
+      grid-template-columns: 1fr;
+      gap: 22px;
+      padding: 14px;
+      border-radius: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .camo-use-cases__media {
+      aspect-ratio: 1.18 / 1;
+      border-radius: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .camo-use-cases__heading {
+      margin-bottom: 12px;
+      font-size: clamp(2.4rem, 8vw, 3.2rem);
+    }
+
+    #shopify-section-{{ section.id }} .camo-use-cases__description {
+      margin-bottom: 16px;
+      font-size: 1.7rem;
+    }
+
+    #shopify-section-{{ section.id }} .camo-use-cases__benefits li {
+      gap: 10px;
+      font-size: 1.6rem;
+    }
+
+    #shopify-section-{{ section.id }} .camo-use-cases__controls {
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .camo-use-cases__control {
+      width: min(22vw, 120px);
+      height: 12px;
+    }
+  }
+{%- endstyle -%}
+
+<camo-use-cases-carousel class="camo-use-cases" role="region" aria-label="Camo seat cover protection features" data-paused="false">
+  <div class="camo-use-cases__track" aria-live="polite" tabindex="0">
+    {%- for block in section.blocks -%}
+      <article class="camo-use-cases__card" {{ block.shopify_attributes }}>
+        <div class="camo-use-cases__media">
+          <img
+            src="{{ block.settings.image_asset | asset_url }}"
+            alt="{{ block.settings.image_alt | escape }}"
+            loading="lazy"
+            width="1254"
+            height="1254"
+          >
+        </div>
+        <div class="camo-use-cases__content">
+          <h2 class="camo-use-cases__heading">{{ block.settings.heading | escape }}</h2>
+          <p class="camo-use-cases__description">{{ block.settings.description | escape }}</p>
+          <ul class="camo-use-cases__benefits">
+            {%- if block.settings.benefit_1 != blank -%}
+              <li><span class="camo-use-cases__check" aria-hidden="true">✓</span><span>{{ block.settings.benefit_1 | escape }}</span></li>
+            {%- endif -%}
+            {%- if block.settings.benefit_2 != blank -%}
+              <li><span class="camo-use-cases__check" aria-hidden="true">✓</span><span>{{ block.settings.benefit_2 | escape }}</span></li>
+            {%- endif -%}
+          </ul>
+        </div>
+      </article>
+    {%- endfor -%}
+  </div>
+
+  <div class="camo-use-cases__controls" role="group" aria-label="Choose a feature">
+    {%- for block in section.blocks -%}
+      <button
+        class="camo-use-cases__control"
+        type="button"
+        aria-label="Show {{ block.settings.heading | escape }}"
+        aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+        data-slide-index="{{ forloop.index0 }}"
+      ><span class="camo-use-cases__progress" aria-hidden="true"></span></button>
+    {%- endfor -%}
+  </div>
+</camo-use-cases-carousel>
+
+<script>
+  if (!customElements.get('camo-use-cases-carousel')) {
+    customElements.define('camo-use-cases-carousel', class extends HTMLElement {
+      connectedCallback() {
+        this.track = this.querySelector('.camo-use-cases__track');
+        this.cards = Array.from(this.querySelectorAll('.camo-use-cases__card'));
+        this.controls = Array.from(this.querySelectorAll('.camo-use-cases__control'));
+        this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        this.pauseReasons = new Set();
+        this.currentIndex = 0;
+        this.duration = 6500;
+        this.remaining = this.duration;
+        this.startedAt = null;
+
+        if (!this.track || this.cards.length < 2 || this.controls.length !== this.cards.length) return;
+
+        this.onScroll = () => {
+          window.clearTimeout(this.scrollTimer);
+          this.scrollTimer = window.setTimeout(() => {
+            const index = Math.round(this.track.scrollLeft / this.track.clientWidth);
+            if (index !== this.currentIndex) this.activate(index, false);
+          }, 100);
+        };
+        this.track.addEventListener('scroll', this.onScroll, { passive: true });
+        this.controls.forEach((control) => control.addEventListener('click', () => {
+          const index = Number(control.dataset.slideIndex);
+          if (index !== this.currentIndex) this.activate(index, true);
+          this.resume('focus');
+        }));
+
+        this.addEventListener('focusin', () => this.pause('focus'));
+        this.addEventListener('focusout', (event) => {
+          if (!this.contains(event.relatedTarget)) this.resume('focus');
+        });
+        this.onVisibilityChange = () => document.hidden ? this.pause('hidden') : this.resume('hidden');
+        document.addEventListener('visibilitychange', this.onVisibilityChange);
+
+        if (!this.reducedMotion) this.scheduleNext();
+      }
+
+      disconnectedCallback() {
+        window.clearTimeout(this.timer);
+        window.clearTimeout(this.scrollTimer);
+        if (this.onScroll && this.track) this.track.removeEventListener('scroll', this.onScroll);
+        if (this.onVisibilityChange) document.removeEventListener('visibilitychange', this.onVisibilityChange);
+      }
+
+      activate(index, scrollToSlide) {
+        if (index < 0 || index >= this.cards.length) return;
+        if (index === this.currentIndex) return;
+
+        window.clearTimeout(this.timer);
+        this.startedAt = null;
+        this.remaining = this.duration;
+        this.currentIndex = index;
+        this.controls.forEach((control, controlIndex) => {
+          control.setAttribute('aria-current', controlIndex === index ? 'true' : 'false');
+        });
+
+        if (scrollToSlide) {
+          this.track.scrollTo({
+            left: this.cards[index].offsetLeft,
+            behavior: this.reducedMotion ? 'auto' : 'smooth'
+          });
+        }
+
+        if (!this.reducedMotion) {
+          const progress = this.controls[index].querySelector('.camo-use-cases__progress');
+          progress.style.animation = 'none';
+          progress.style.setProperty('--camo-story-duration', `${this.remaining}ms`);
+          progress.offsetHeight;
+          progress.style.animation = '';
+          this.scheduleNext();
+        }
+      }
+
+      pause(reason) {
+        if (this.pauseReasons.has(reason)) return;
+        this.pauseReasons.add(reason);
+        this.dataset.paused = 'true';
+        if (this.startedAt !== null) {
+          this.remaining = Math.max(0, this.remaining - (Date.now() - this.startedAt));
+          this.startedAt = null;
+        }
+        window.clearTimeout(this.timer);
+      }
+
+      resume(reason) {
+        this.pauseReasons.delete(reason);
+        if (this.pauseReasons.size === 0) {
+          this.dataset.paused = 'false';
+          if (!this.reducedMotion) this.scheduleNext();
+        }
+      }
+
+      scheduleNext() {
+        window.clearTimeout(this.timer);
+        if (this.pauseReasons.size > 0 || this.reducedMotion) return;
+        this.startedAt = Date.now();
+        this.timer = window.setTimeout(() => {
+          this.startedAt = null;
+          this.activate((this.currentIndex + 1) % this.cards.length, true);
+        }, this.remaining);
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Camo protection stories",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Section background",
+      "default": "#f5f4f2"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top spacing",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Protection story",
+      "settings": [
+        { "type": "text", "id": "image_asset", "label": "Theme image filename" },
+        { "type": "text", "id": "image_alt", "label": "Image alt text" },
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "textarea", "id": "description", "label": "Description" },
+        { "type": "text", "id": "benefit_1", "label": "Benefit one" },
+        { "type": "text", "id": "benefit_2", "label": "Benefit two" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    { "name": "Camo protection stories" }
+  ]
+}
+{% endschema %}

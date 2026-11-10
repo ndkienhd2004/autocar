@@ -101,6 +101,13 @@ if (!customElements.get('product-form')) {
        * plus Trim/Cab Size when those dropdowns exist.
        */
       validateVehicleDropdowns() {
+        const vehicleText = document.querySelector('[data-vehicle-entry] [data-vehicle-text]');
+        if (vehicleText) {
+          if (vehicleText.value.trim() && vehicleText.checkValidity()) return true;
+          vehicleText.reportValidity();
+          vehicleText.focus();
+          return false;
+        }
         const yearSelect = document.querySelector('.dropdown-select-year');
         if (!yearSelect) return true;
 

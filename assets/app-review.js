@@ -1,9 +1,41 @@
+var productReviewApi = window.productReviewConfig?.endpoint;
+function productMediaUrl(media, type) { return window.productReviewConfig?.mediaUrl(media, type) || ''; }
+var productMediaPromise;
+function fetchProductMedia(type, limit) {
+  if (!productMediaPromise) productMediaPromise = (async () => {
+    const rows = []; let page = 1, totalPages = 1;
+    do {
+      const response = await fetch(`${productReviewApi}?pageIndex=${page}&pageSize=100`);
+      if (!response.ok) throw new Error('Unable to load product reviews');
+      const payload = await response.json();
+      rows.push(...payload.data.reviews);
+      totalPages = payload.data.pagination.totalPages; page++;
+    } while (page <= totalPages);
+    return rows;
+  })().catch(error => { productMediaPromise = null; throw error; });
+  return productMediaPromise.then(rows => {
+    const files = rows.flatMap(review => (review[type] || []).map(file => ({...file, reviewId: review.id})));
+    return {json: async () => ({data: limit ? files.slice(0, limit) : files})};
+  });
+}
 var pageIndex = 0;
-var base_img = "https://api.autocaruniverse.cloud/uploads/images/";
-var base_video = "https://api.autocaruniverse.cloud/uploads/videos/";
-var reviews;
+var reviews = [];
+var reviewTotalPages = 1;
+
+function showReviewSectionIfContentExists() {
+  const section = document.querySelector('.review-section');
+  if (section) section.hidden = false;
+}
+
+function setReviewMediaSection(selector, hasItems) {
+  const section = document.querySelector(selector);
+  if (!section) return;
+  section.hidden = !hasItems;
+  if (hasItems) showReviewSectionIfContentExists();
+}
 
 document.addEventListener("DOMContentLoaded", function () {
+  if (!productReviewApi) return;
   getVideo();
   getImage();
   getData(pageIndex, false);
@@ -15,19 +47,18 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function getVideo() {
-  fetch(
-    `https://api.autocaruniverse.cloud/api/media/files?type=videos&pageIndex=0&pageSize=10`,
-  )
+  fetchProductMedia('videos', 10)
     .then((response) => response.json())
     .then((data) => {
       const videos = data?.data;
       const videoContainer = document.getElementById("videoContainer");
       if (videoContainer && Array.isArray(videos)) {
+        setReviewMediaSection('[data-video-reviews]', videos.length > 0);
         videoContainer.innerHTML = "";
 
         videos.forEach((video, idx) => {
-          const thumbnail = `${base_video}${video.filename}`;
-          const postterImg = `${base_img}${video.frame}`;
+          const thumbnail = `${productMediaUrl(video, 'videos')}`;
+          const postterImg = `${productMediaUrl({url: video.frameUrl, filename: video.frame}, 'images')}`;
 
           const videoItem = document.createElement("div");
           videoItem.className = "video-item-app-review";
@@ -66,18 +97,17 @@ function getVideo() {
 }
 
 function getImage() {
-  fetch(
-    `https://api.autocaruniverse.cloud/api/media/files?type=images&pageIndex=0&pageSize=10`,
-  )
+  fetchProductMedia('images', 10)
     .then((response) => response.json())
     .then((data) => {
       const images = data?.data;
       const imageContainer = document.getElementById("imageContainer");
       if (imageContainer && Array.isArray(images)) {
+        setReviewMediaSection('[data-image-reviews]', images.length > 0);
         imageContainer.innerHTML = "";
 
         images.forEach((image, idx) => {
-          const imgSrc = `${base_img}${image.filename}`;
+          const imgSrc = `${productMediaUrl(image, 'images')}`;
           const imgEl = document.createElement("img");
           imgEl.src = imgSrc;
           imgEl.alt = `Review image ${idx + 1}`;
@@ -99,9 +129,7 @@ function getImage() {
 }
 
 function getImageDetail(id) {
-  fetch(
-    `https://api.autocaruniverse.cloud/api/media/files?type=images&isFull=true`,
-  )
+  fetchProductMedia('images')
     .then((response) => response.json())
     .then((data) => {
       const images = data.data;
@@ -131,7 +159,7 @@ function getImageDetail(id) {
 
       images.forEach((image, i) => {
         const imgEl = document.createElement("img");
-        imgEl.src = `${base_img}${image.filename}`;
+        imgEl.src = `${productMediaUrl(image, 'images')}`;
         imgEl.alt = `thumb ${i + 1}`;
         imgEl.dataset.index = i;
 
@@ -163,7 +191,7 @@ function getImageDetail(id) {
 }
 
 function showModalImagesDetail(id) {
-  fetch(`https://api.autocaruniverse.cloud/api/reviews/${id}`)
+  fetch(`${productReviewApi}/${id}`)
     .then((response) => response.json())
     .then((data) => {
       const review = data.data;
@@ -171,19 +199,43 @@ function showModalImagesDetail(id) {
     });
 }
 
+function mergeLoadedReviews(previous, incoming, append) {
+  if (!append) return incoming;
+  const byId = new Map(previous.map(review => [String(review.id), review]));
+  incoming.forEach(review => byId.set(String(review.id), review));
+  return [...byId.values()];
+}
+
 function getData(pageIndex, isShowMore) {
   fetch(
-    `https://api.autocaruniverse.cloud/api/reviews?pageIndex=${pageIndex}&pageSize=8`,
+    `${productReviewApi}?pageIndex=${Math.max(1, pageIndex)}&pageSize=8`,
   )
     .then((response) => response.json())
     .then((data) => {
-      reviews = data.data.reviews;
+      const payload = data?.data || {};
+      const pageReviews = Array.isArray(payload.reviews) ? payload.reviews : [];
+      reviews = mergeLoadedReviews(reviews, pageReviews, isShowMore);
+      const pagination = payload.pagination || {};
+      const totalItems = Number(pagination.totalItems ?? reviews.length);
+      reviewTotalPages = Math.max(1, Number(pagination.totalPages || 1));
+      const hasWrittenReviews = totalItems > 0;
+      const heading = document.querySelector('[data-review-heading]');
+      const summary = document.querySelector('[data-review-summary]');
+      const writtenReviews = document.querySelector('[data-written-reviews]');
+      const viewMore = document.querySelector('[data-review-view-more]');
+      if (heading) heading.hidden = !hasWrittenReviews;
+      if (summary) summary.hidden = !hasWrittenReviews;
+      if (writtenReviews) writtenReviews.hidden = !hasWrittenReviews;
+      if (viewMore) viewMore.hidden = !hasWrittenReviews || reviewTotalPages <= 1;
+      if (!hasWrittenReviews) return;
+      showReviewSectionIfContentExists();
+
       const indexS = isShowMore ? 1 : 0;
       const reviewContainer = document.getElementsByClassName(
         "customer-review-app-review",
       )[indexS];
       if (!reviewContainer || !Array.isArray(reviews)) return;
-      reviews.forEach((review, index) => {
+      pageReviews.forEach((review, index) => {
         // Tạo HTML review card
         const reviewHTML = `
                     <div class="review-card-app-review" data-review-id="${review.id}" data-top-review="${index == 0 ? 1 : 0}">
@@ -256,7 +308,7 @@ function getData(pageIndex, isShowMore) {
                                     class="review-img-app-review" 
                                     data-review-id="${review.id}" 
                                     data-index="${i}" 
-                                    src="${base_img}${image.filename}" 
+                                    src="${productMediaUrl(image, 'images')}" 
                                     alt="Review photo ${i + 1}" 
                                     width="160px" 
                                     height="160px"
@@ -281,6 +333,7 @@ function getData(pageIndex, isShowMore) {
 }
 
 function getMoreReview() {
+  if (pageIndex + 1 >= reviewTotalPages) return;
   pageIndex++;
   getData(pageIndex + 1, true);
 }
@@ -308,7 +361,7 @@ function showModalvideo(videos, startIndex) {
 
   function renderVideo(index) {
     pauseAllOutsideVideos();
-    const videoSrc = `${base_video}${videos[index].filename}`;
+    const videoSrc = `${productMediaUrl(videos[index], 'videos')}`;
     modalContent.innerHTML = `
             <div class="review-modal-app-review">
                 <div class="modal-topbar-app-review">
@@ -402,7 +455,7 @@ function showModalDetail(review) {
             <div class="review-modal-body-app-review">
                 <div class="modal-media-app-review">
                     <div class="media-viewer-app-review">
-                        <img id="modalMainImg" src="${base_img}${review.images[0]?.filename}" alt="review image">
+                        <img id="modalMainImg" src="${productMediaUrl(review.images[0], 'images')}" alt="review image">
                         <button class="media-nav-app-review prev-app-review" id="mediaPrev"><i class="fas fa-chevron-left" style="font-size: 45px; color: white;"></i></button>
                         <button class="media-nav-app-review next-app-review" id="mediaNext"><i class="fas fa-chevron-right" style="font-size: 45px; color: white;"></i></button>
                     </div>
@@ -465,7 +518,7 @@ function showModalDetail(review) {
                     ${review.images
                       .map(
                         (image, i) => `
-                        <img data-index="${i}" class="${i === 0 ? "active-app-review" : ""}" src="${base_img}${image.filename}" alt="thumb ${i + 1}">
+                        <img data-index="${i}" class="${i === 0 ? "active-app-review" : ""}" src="${productMediaUrl(image, 'images')}" alt="thumb ${i + 1}">
                     `,
                       )
                       .join("")}
@@ -527,7 +580,7 @@ function showModalDetail(review) {
   function setActive(index) {
     if (!totalImages || !mainImg) return;
     currentIndex = (index + totalImages) % totalImages;
-    mainImg.src = `${base_img}${review.images[currentIndex]?.filename}`;
+    mainImg.src = `${productMediaUrl(review.images[currentIndex], 'images')}`;
     thumbs.forEach((t, i) => {
       if (i === currentIndex) t.classList.add("active-app-review");
       else t.classList.remove("active-app-review");
@@ -632,8 +685,10 @@ function getTopReiew() {
     while (container.firstChild) container.removeChild(container.firstChild);
   }
 
-  // Di chuyển hẳn node qua (giữ nguyên mọi event listener đã gắn)
-  container.appendChild(reviewEl);
+  // Keep the first review in the main list and show a copy in the summary.
+  const featuredReview = reviewEl.cloneNode(true);
+  featuredReview.removeAttribute('data-top-review');
+  container.appendChild(featuredReview);
 }
 
 function addEventListenerBtn() {

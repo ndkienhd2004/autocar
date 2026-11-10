@@ -1,7 +1,7 @@
 {{ 'app-review.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'app-review.js' | asset_url }}" defer="defer"></script>
 
-<section id="ReviewTabs-{{ section.id }}" class="review-tabs color-{{ section.settings.color_scheme }}">
+<section id="ReviewTabs-{{ section.id }}" class="review-tabs color-{{ section.settings.color_scheme }}" hidden>
   <div class="review-tabs__inner page-width">
     <h2 class="review-tabs__heading">
       {{ section.settings.heading_before | escape }}
@@ -14,21 +14,21 @@
     {% endif %}
 
     <div class="review-tabs__switch" role="tablist" aria-label="Review type">
-      <button class="review-tabs__button review-tabs__button--active" type="button" role="tab" aria-selected="true" aria-controls="ReviewVideos-{{ section.id }}">
+        <button class="review-tabs__button review-tabs__button--active" type="button" role="tab" aria-selected="true" aria-controls="ReviewVideos-{{ section.id }}" data-review-type="video">
         {{ section.settings.video_label | escape }}
       </button>
-      <button class="review-tabs__button" type="button" role="tab" aria-selected="false" aria-controls="ReviewPhotos-{{ section.id }}">
+        <button class="review-tabs__button" type="button" role="tab" aria-selected="false" aria-controls="ReviewPhotos-{{ section.id }}" data-review-type="photo">
         {{ section.settings.photo_label | escape }}
       </button>
     </div>
 
     <div class="review-tabs__content">
-      <div id="ReviewVideos-{{ section.id }}" class="review-tabs__panel" role="tabpanel">
+      <div id="ReviewVideos-{{ section.id }}" class="review-tabs__panel" role="tabpanel" data-review-panel="video">
         <div class="review-tabs__status" data-video-status aria-live="polite">Loading video reviews…</div>
         <div class="review-tabs__video-grid" data-video-grid></div>
       </div>
 
-      <div id="ReviewPhotos-{{ section.id }}" class="review-tabs__panel" role="tabpanel" hidden>
+      <div id="ReviewPhotos-{{ section.id }}" class="review-tabs__panel" role="tabpanel" data-review-panel="photo" hidden>
         <div class="review-tabs__status" data-photo-status aria-live="polite">Loading photo reviews…</div>
         <div class="review-tabs__photo-grid" data-photo-grid></div>
       </div>
@@ -50,18 +50,21 @@
     const root = document.getElementById('ReviewTabs-{{ section.id }}');
     if (!root) return;
 
-    const apiBase = 'https://api.autocaruniverse.cloud';
-    const imageBase = `${apiBase}/uploads/images/`;
-    const videoBase = `${apiBase}/uploads/videos/`;
+    const config = window.productReviewConfig;
+    if (!config) return;
+    const productReviewApi = config.endpoint;
+    const productMediaUrl = config.mediaUrl;
     const pageSize = { video: 10, photo: 8 };
     const state = {
       active: 'video',
-      video: { nextPage: 0, hasMore: true, loading: false, initialized: false, items: [], filenames: new Set() },
-      photo: { nextPage: 0, hasMore: true, loading: false, initialized: false, ids: new Set(), items: [] }
+      video: { nextPage: 1, hasMore: true, loading: false, initialized: false, items: [], filenames: new Set() },
+      photo: { nextPage: 1, hasMore: true, loading: false, initialized: false, ids: new Set(), items: [] }
     };
+    let mediaVisibilityInitialized = false;
 
     const buttons = [...root.querySelectorAll('.review-tabs__button')];
     const panels = buttons.map((button) => document.getElementById(button.getAttribute('aria-controls')));
+    const tabSwitch = root.querySelector('.review-tabs__switch');
     const videoGrid = root.querySelector('[data-video-grid]');
     const photoGrid = root.querySelector('[data-photo-grid]');
     const videoStatus = root.querySelector('[data-video-status]');
@@ -98,6 +101,24 @@
         if (panels[index]) panels[index].hidden = !active;
       });
       updateSeeMore();
+    };
+
+    const revealAvailableMedia = () => {
+      if (!state.video.initialized || !state.photo.initialized) return;
+
+      const hasVideos = state.video.items.length > 0;
+      const hasPhotos = state.photo.items.length > 0;
+      buttons[0].hidden = !hasVideos;
+      buttons[1].hidden = !hasPhotos;
+      panels[0].hidden = !hasVideos;
+      panels[1].hidden = !hasPhotos;
+      root.hidden = !hasVideos && !hasPhotos;
+      tabSwitch.hidden = !(hasVideos && hasPhotos);
+
+      if (!mediaVisibilityInitialized && (hasVideos || hasPhotos)) {
+        setTab(hasVideos ? buttons[0] : buttons[1]);
+        mediaVisibilityInitialized = true;
+      }
     };
 
     buttons.forEach((button) => button.addEventListener('click', () => setTab(button)));
@@ -140,7 +161,7 @@
         return `
           <article class="review-tabs__photo-card" data-photo-index="${startIndex + index}">
             <div class="review-tabs__photo-media">
-              <img src="${imageBase}${encodeURIComponent(firstImage.filename)}" alt="${escapeHtml(review.title || 'Customer review photo')}" loading="lazy">
+              <img src="${escapeHtml(productMediaUrl(firstImage, 'images'))}" alt="${escapeHtml(review.title || 'Customer review photo')}" loading="lazy">
             </div>
             <div class="review-tabs__photo-body">
               <div class="review-tabs__photo-author">
@@ -195,11 +216,11 @@
       });
 
       videoGrid.insertAdjacentHTML('beforeend', newVideos.map((video, index) => {
-        const poster = video.frame ? ` poster="${imageBase}${encodeURIComponent(video.frame)}"` : '';
+        const poster = video.frame ? ` poster="${escapeHtml(productMediaUrl({url: video.frameUrl, filename: video.frame}, 'images'))}"` : '';
         return `
           <div class="video-item-app-review" data-video-index="${startIndex + index}">
             <div class="video-thumbnail-app-review">
-              <video src="${videoBase}${encodeURIComponent(video.filename)}"${poster} muted playsinline preload="metadata"></video>
+              <video src="${escapeHtml(productMediaUrl(video, 'videos'))}"${poster} muted playsinline preload="metadata"></video>
               <span class="play-button-app-review" aria-hidden="true">▶</span>
             </div>
           </div>
@@ -227,22 +248,28 @@
       if (state.photo.loading || !state.photo.hasMore) return;
       state.photo.loading = true;
       updateSeeMore();
-      const requestPage = state.photo.nextPage;
 
       try {
-        const response = await fetch(`${apiBase}/api/reviews?pageIndex=${requestPage}&pageSize=${pageSize.photo}`);
-        const payload = await response.json();
-        appendPhotoCards(payload?.data?.reviews);
-        const pagination = payload?.data?.pagination;
-        state.photo.hasMore = pagination?.hasNextPage === true;
-        state.photo.nextPage = requestPage === 0 ? 2 : requestPage + 1;
+        let added = 0;
+        do {
+          const requestPage = state.photo.nextPage;
+          const response = await fetch(`${productReviewApi}?pageIndex=${requestPage}&pageSize=${pageSize.photo}`);
+          if (!response.ok) throw new Error('Unable to load photo reviews');
+          const payload = await response.json();
+          added += appendPhotoCards(payload?.data?.reviews);
+          const pagination = payload?.data?.pagination;
+          state.photo.hasMore = requestPage < (pagination?.totalPages || 0);
+          state.photo.nextPage = requestPage + 1;
+        } while (!added && state.photo.hasMore);
         state.photo.initialized = true;
         if (!photoGrid.children.length) photoStatus.textContent = 'No photo reviews available yet.';
       } catch (error) {
         state.photo.hasMore = false;
+        state.photo.initialized = true;
         photoStatus.textContent = 'Photo reviews are temporarily unavailable.';
       } finally {
         state.photo.loading = false;
+        revealAvailableMedia();
         updateSeeMore();
       }
     };
@@ -251,23 +278,29 @@
       if (state.video.loading || !state.video.hasMore) return;
       state.video.loading = true;
       updateSeeMore();
-      const requestPage = state.video.nextPage;
 
       try {
-        const response = await fetch(`${apiBase}/api/media/files?type=videos&pageIndex=${requestPage}&pageSize=${pageSize.video}`);
-        const payload = await response.json();
-        const added = appendVideoCards(payload?.data);
-        const returned = Array.isArray(payload?.data) ? payload.data : [];
-        const pagination = payload?.pagination || payload?.data?.pagination;
-        state.video.hasMore = pagination?.hasNextPage === true || (!pagination && returned.length >= pageSize.video && added > 0);
-        state.video.nextPage = requestPage + 1;
+        let added = 0;
+        do {
+          const requestPage = state.video.nextPage;
+          const response = await fetch(`${productReviewApi}?pageIndex=${requestPage}&pageSize=${pageSize.video}`);
+          if (!response.ok) throw new Error('Unable to load video reviews');
+          const payload = await response.json();
+          const reviews = payload?.data?.reviews || [];
+          added += appendVideoCards(reviews.flatMap(review => (review.videos || []).map(video => ({...video, reviewId: review.id}))));
+          const pagination = payload?.data?.pagination || payload?.pagination;
+          state.video.hasMore = requestPage < (pagination?.totalPages || 0);
+          state.video.nextPage = requestPage + 1;
+        } while (!added && state.video.hasMore);
         state.video.initialized = true;
         if (!videoGrid.children.length) videoStatus.textContent = 'No video reviews available yet.';
       } catch (error) {
         state.video.hasMore = false;
+        state.video.initialized = true;
         videoStatus.textContent = 'Video reviews are temporarily unavailable.';
       } finally {
         state.video.loading = false;
+        revealAvailableMedia();
         updateSeeMore();
       }
     };

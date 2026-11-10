@@ -103,7 +103,7 @@
             {%- if cart != empty -%}
               <div class="drawer__cart-items-wrapper cart-drawer__line-items">
                 {%- for item in cart.items -%}
-                  {%- if item.price == 0 -%}
+                  {%- if item.final_line_price == 0 -%}
                     {%- continue -%}
                   {%- endif -%}
                   <div id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="cart-item cart-item--drawer">
